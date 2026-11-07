@@ -95,6 +95,9 @@ public class SecurityConfig {
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/api/public/**").permitAll()
                         .requestMatchers("/api/ai/**").permitAll()
+                        .requestMatchers("/api/evidence/upload").permitAll()
+                        .requestMatchers("/api/evidence/*/download").permitAll()
+                        .requestMatchers("/api/evidence/**").permitAll()
                         .requestMatchers("/actuator/**", "/error").permitAll()
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 

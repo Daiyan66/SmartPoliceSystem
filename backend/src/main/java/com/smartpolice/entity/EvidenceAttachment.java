@@ -1,5 +1,6 @@
 package com.smartpolice.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;
@@ -11,6 +12,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "complaint", "uploadedByUser"})
 public class EvidenceAttachment {
 
     @Id
@@ -50,5 +52,13 @@ public class EvidenceAttachment {
     @PrePersist
     protected void onCreate() {
         this.createdAt = LocalDateTime.now();
+    }
+
+    public Long getComplaintId() {
+        return complaint != null ? complaint.getId() : null;
+    }
+
+    public String getUploadedByName() {
+        return uploadedByUser != null ? uploadedByUser.getFullName() : null;
     }
 }

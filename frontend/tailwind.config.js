@@ -1,3 +1,5 @@
+import daisyui from 'daisyui';
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
@@ -8,17 +10,23 @@ export default {
     extend: {
       colors: {
         police: {
-          900: '#0B1325', // Deep Navy Midnight
-          800: '#14213D', // Station Command Blue
-          700: '#1D3557', // Duty Blue
+          900: '#0B1325',
+          800: '#14213D',
+          700: '#1D3557',
           600: '#457B9D',
-          gold: '#D4AF37', // Police Crest Gold
-          saffron: '#FF9933', // National Flag Saffron
-          khaki: '#C2B280', // Police Uniform Khaki
-          green: '#138808', // Indian Green
+          gold: '#D4AF37',
+          saffron: '#FF9933',
+          khaki: '#C2B280',
+          green: '#138808',
         }
       }
     },
   },
-  plugins: [],
+  plugins: [
+    daisyui,
+  ],
+  daisyui: {
+    themes: ["bumblebee", "light"],
+    darkTheme: false,
+  },
 }
