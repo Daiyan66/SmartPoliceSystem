@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { Shield, LogOut, User, Building, Award } from 'lucide-react';
+import { Shield, LogOut, User, Building, Award, Search } from 'lucide-react';
+import GuestTrackingModal from './GuestTrackingModal';
 
 export default function Navbar() {
   const { user, logout, isOfficer } = useAuth();
+  const [showTrackModal, setShowTrackModal] = useState(false);
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -40,7 +42,15 @@ export default function Navbar() {
           </Link>
 
           {/* Right Navigation */}
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-3">
+            <button
+              onClick={() => setShowTrackModal(true)}
+              className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold rounded-lg border border-amber-300 bg-amber-50 hover:bg-amber-100 text-amber-900 transition"
+            >
+              <Search className="w-3.5 h-3.5" />
+              Track FIR / OTP
+            </button>
+
             {user ? (
               <div className="flex items-center space-x-4">
                 {/* User Role Badge */}
@@ -107,6 +117,7 @@ export default function Navbar() {
           </div>
         </div>
       </div>
+      <GuestTrackingModal isOpen={showTrackModal} onClose={() => setShowTrackModal(false)} />
     </header>
   );
 }

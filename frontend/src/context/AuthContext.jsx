@@ -97,6 +97,14 @@ export const AuthProvider = ({ children }) => {
     return user && user.role && user.role !== 'ROLE_CITIZEN';
   };
 
+  const isShoOrAbove = () => {
+    return user && ['ROLE_SHO', 'ROLE_DSP_ASP', 'ROLE_SP_SSP', 'ROLE_DIG_DGP', 'ROLE_ADMIN'].includes(user.role);
+  };
+
+  const isIo = () => {
+    return user && ['ROLE_SUB_INSPECTOR', 'ROLE_ASI', 'ROLE_SHO', 'ROLE_DSP_ASP', 'ROLE_SP_SSP', 'ROLE_ADMIN'].includes(user.role);
+  };
+
   const isAdminOrSP = () => {
     return user && (user.role === 'ROLE_SP_SSP' || user.role === 'ROLE_DIG_DGP' || user.role === 'ROLE_ADMIN');
   };
@@ -110,6 +118,8 @@ export const AuthProvider = ({ children }) => {
         registerCitizen,
         logout,
         isOfficer,
+        isShoOrAbove,
+        isIo,
         isAdminOrSP
       }}
     >

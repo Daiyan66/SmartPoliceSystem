@@ -7,9 +7,12 @@ import {
 } from 'lucide-react';
 import ComplaintAiAnalyzer from '../components/ComplaintAiAnalyzer';
 import EvidenceManagementWidget from '../components/EvidenceManagementWidget';
+import ComplaintRegistrationWidget from '../components/ComplaintRegistrationWidget';
+import ShoConsoleWidget from '../components/ShoConsoleWidget';
+import IoInvestigationWorkspace from '../components/IoInvestigationWorkspace';
 
 export default function DashboardPage() {
-  const { user, isOfficer, isAdminOrSP } = useAuth();
+  const { user, isOfficer, isShoOrAbove, isIo, isAdminOrSP } = useAuth();
 
   // State for stations
   const [stations, setStations] = useState([]);
@@ -204,6 +207,19 @@ export default function DashboardPage() {
           <div className="text-xs text-slate-500 mt-0.5 font-medium">SHA-256 Custody Certified</div>
         </div>
       </div>
+
+      {/* Phase 4: Citizen e-FIR / Zero-FIR Filing Wizard */}
+      <ComplaintRegistrationWidget />
+
+      {/* Phase 4: Station House Officer (SHO) Console */}
+      {isShoOrAbove && isShoOrAbove() && (
+        <ShoConsoleWidget stationId={user?.stationId} />
+      )}
+
+      {/* Phase 4: Investigating Officer (IO) Case Diary & Chargesheet Workspace */}
+      {isIo && isIo() && (
+        <IoInvestigationWorkspace />
+      )}
 
       {/* Phase 3: Digital Evidence Management System (BSA 2023) */}
       <EvidenceManagementWidget />
