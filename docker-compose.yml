@@ -1,0 +1,64 @@
+version: '3.8'
+
+services:
+  # 1. MySQL 8.0 Database (Spatial / ST_SRID Enabled)
+  mysql-db:
+    image: mysql:8.0.41
+    container_name: smartpolice-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: smart_police_db
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./database/01_schema.sql:/docker-entrypoint-initdb.d/01_schema.sql
+      - ./database/02_seed_data.sql:/docker-entrypoint-initdb.d/02_seed_data.sql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-proot"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # 2. Spring Boot 3.3 Backend (Java 21)
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: smartpolice-backend
+    restart: unless-stopped
+    depends_on:
+      mysql-db:
+        condition: service_healthy
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/smart_police_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+    ports:
+      - "8080:8080"
+
+  # 3. Python Forensic & Intelligence Engine
+  python-service:
+    build:
+      context: ./python-service
+      dockerfile: Dockerfile
+    container_name: smartpolice-python
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+
+  # 4. React 19 Frontend
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: smartpolice-frontend
+    restart: unless-stopped
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+
+volumes:
+  mysql_data:
