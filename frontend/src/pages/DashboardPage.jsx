@@ -5,6 +5,7 @@ import {
   Shield, UserPlus, Building, Phone, Award, CheckCircle, 
   AlertTriangle, Radio, FileText, MapPin, Database, Cpu, Activity, RefreshCw 
 } from 'lucide-react';
+import ComplaintAiAnalyzer from '../components/ComplaintAiAnalyzer';
 
 export default function DashboardPage() {
   const { user, isOfficer, isAdminOrSP } = useAuth();
@@ -234,6 +235,9 @@ export default function DashboardPage() {
           <div className="text-xs text-slate-400 mt-1">Bucket4j Rate-Limited (429)</div>
         </div>
       </div>
+
+      {/* Phase 2: OpenRouter AI Intelligence Engine & Multilingual Triage */}
+      <ComplaintAiAnalyzer />
 
       {/* Role-Specific Operation Modules */}
       {isAdminOrSP() && (

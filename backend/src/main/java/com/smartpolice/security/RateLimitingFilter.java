@@ -39,6 +39,8 @@ public class RateLimitingFilter extends OncePerRequestFilter {
             allowed = rateLimitingService.tryConsumeLogin(clientIp);
         } else if (path.contains("/api/sos/trigger")) {
             allowed = rateLimitingService.tryConsumeSos(clientIp);
+        } else if (path.contains("/api/ai/chat")) {
+            allowed = rateLimitingService.tryConsumeAiChat(clientIp);
         } else if (path.startsWith("/api/public/")) {
             allowed = rateLimitingService.tryConsumeGeneral(clientIp);
         }

@@ -18,11 +18,15 @@ public class RateLimitingService {
     @Value("${smartpolice.rate-limiting.sos-tokens-per-minute:5}")
     private long sosTokensPerMinute;
 
+    @Value("${smartpolice.rate-limiting.ai-chat-tokens-per-minute:10}")
+    private long aiChatTokensPerMinute;
+
     @Value("${smartpolice.rate-limiting.public-tokens-per-minute:30}")
     private long publicTokensPerMinute;
 
     private final Map<String, Bucket> loginBuckets = new ConcurrentHashMap<>();
     private final Map<String, Bucket> sosBuckets = new ConcurrentHashMap<>();
+    private final Map<String, Bucket> aiChatBuckets = new ConcurrentHashMap<>();
     private final Map<String, Bucket> generalBuckets = new ConcurrentHashMap<>();
 
     public boolean tryConsumeLogin(String clientIp) {
@@ -32,6 +36,11 @@ public class RateLimitingService {
 
     public boolean tryConsumeSos(String clientIp) {
         Bucket bucket = sosBuckets.computeIfAbsent(clientIp, k -> createBucket(sosTokensPerMinute));
+        return bucket.tryConsume(1);
+    }
+
+    public boolean tryConsumeAiChat(String clientIp) {
+        Bucket bucket = aiChatBuckets.computeIfAbsent(clientIp, k -> createBucket(aiChatTokensPerMinute));
         return bucket.tryConsume(1);
     }
 
