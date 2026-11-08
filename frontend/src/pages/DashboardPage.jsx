@@ -13,6 +13,7 @@ import IoInvestigationWorkspace from '../components/IoInvestigationWorkspace';
 import SosEmergencyWidget from '../components/SosEmergencyWidget';
 import StationSosConsoleWidget from '../components/StationSosConsoleWidget';
 import CrimeHotspotsWidget from '../components/CrimeHotspotsWidget';
+import ExecutiveCommandCenter from '../components/ExecutiveCommandCenter';
 
 export default function DashboardPage() {
   const { user, isOfficer, isShoOrAbove, isIo, isAdminOrSP } = useAuth();
@@ -210,6 +211,11 @@ export default function DashboardPage() {
           <div className="text-xs text-slate-500 mt-0.5 font-medium">SHA-256 Custody Certified</div>
         </div>
       </div>
+
+      {/* Phase 6: SP / DGP Executive Command Center & GIS Map */}
+      {isAdminOrSP && isAdminOrSP() && (
+        <ExecutiveCommandCenter />
+      )}
 
       {/* Phase 5: 112 Emergency SOS Distress Dispatch (Live) */}
       <SosEmergencyWidget />
