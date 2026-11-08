@@ -1,0 +1,14 @@
+page "Login" {
+  main p=8 {
+    row justify=center {
+      col span=4 {
+        card p=6 {
+          title "Sign In" level=2
+          input "Email" inputType=email required
+          input "Password" inputType=password required
+          button "Sign In" primary
+        }
+      }
+    }
+  }
+}
