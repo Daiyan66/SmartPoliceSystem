@@ -100,6 +100,10 @@ public class SecurityConfig {
                         .requestMatchers("/api/evidence/upload").permitAll()
                         .requestMatchers("/api/evidence/*/download").permitAll()
                         .requestMatchers("/api/evidence/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/sos/trigger").permitAll()
+                        .requestMatchers("/api/sos/**").permitAll()
+                        .requestMatchers("/api/analytics/**").permitAll()
+                        .requestMatchers("/ws-police/**", "/ws-police-raw/**").permitAll()
                         .requestMatchers("/actuator/**", "/error").permitAll()
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 

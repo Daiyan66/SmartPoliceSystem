@@ -10,6 +10,9 @@ import EvidenceManagementWidget from '../components/EvidenceManagementWidget';
 import ComplaintRegistrationWidget from '../components/ComplaintRegistrationWidget';
 import ShoConsoleWidget from '../components/ShoConsoleWidget';
 import IoInvestigationWorkspace from '../components/IoInvestigationWorkspace';
+import SosEmergencyWidget from '../components/SosEmergencyWidget';
+import StationSosConsoleWidget from '../components/StationSosConsoleWidget';
+import CrimeHotspotsWidget from '../components/CrimeHotspotsWidget';
 
 export default function DashboardPage() {
   const { user, isOfficer, isShoOrAbove, isIo, isAdminOrSP } = useAuth();
@@ -208,6 +211,14 @@ export default function DashboardPage() {
         </div>
       </div>
 
+      {/* Phase 5: 112 Emergency SOS Distress Dispatch (Live) */}
+      <SosEmergencyWidget />
+
+      {/* Phase 5: Station Emergency SOS Dispatch Console (For Police Officers) */}
+      {isOfficer && isOfficer() && (
+        <StationSosConsoleWidget stationId={user?.stationId} />
+      )}
+
       {/* Phase 4: Citizen e-FIR / Zero-FIR Filing Wizard */}
       <ComplaintRegistrationWidget />
 
@@ -220,6 +231,9 @@ export default function DashboardPage() {
       {isIo && isIo() && (
         <IoInvestigationWorkspace />
       )}
+
+      {/* Phase 5: Geospatial Crime Hotspots & DBSCAN Analytics */}
+      <CrimeHotspotsWidget />
 
       {/* Phase 3: Digital Evidence Management System (BSA 2023) */}
       <EvidenceManagementWidget />
