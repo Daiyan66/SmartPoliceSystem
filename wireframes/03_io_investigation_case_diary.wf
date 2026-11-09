@@ -1,0 +1,257 @@
+page "Smart Police - Investigating Officer (IO) Case Diary & Docket Workspace" {
+  header border p=4 {
+    row justify=between align=center {
+      row align=center gap=3 {
+        title "IO INVESTIGATION WORKSPACE & DIGITAL CASE DIARY" level=3
+        badge "SI Sunil Kumar (POL-SI-004)" primary
+        badge "BNSS Sec 180 & 193 Compliant" success
+      }
+      row align=center gap=2 {
+        button "New Case Diary Entry" primary
+        button "Record Witness (BNSS 180)" secondary
+        button "Property Seizure Memo" secondary
+        button "Sign Out" secondary
+      }
+    }
+  }
+
+  main p=6 gap=6 {
+    // ------------------------------------------------------------------------
+    // SECTION 1: ACTIVE INVESTIGATION DOCKET & METRICS
+    // ------------------------------------------------------------------------
+    row gap=4 {
+      col span=3 {
+        card p=4 border shadow=md {
+          text "Active Cases in Docket"
+          title "3 Cases" level=2
+          badge "1 Near Chargesheet Deadline" warning
+        }
+      }
+      col span=3 {
+        card p=4 border shadow=md {
+          text "Total Case Diary Entries"
+          title "14 Entries" level=2
+          badge "Updated Today" success
+        }
+      }
+      col span=3 {
+        card p=4 border shadow=md {
+          text "Witnesses Examined (BNSS 180)"
+          title "6 Statements" level=2
+          badge "2 Audio-Video Recorded" primary
+        }
+      }
+      col span=3 {
+        card p=4 border shadow=md {
+          text "Seized Articles in DEMS"
+          title "4 Items" level=2
+          badge "All Cryptographically Hashed" success
+        }
+      }
+    }
+
+    // ------------------------------------------------------------------------
+    // SECTION 2: ACTIVE CASE SELECTION
+    // ------------------------------------------------------------------------
+    card p=5 border shadow=md {
+      row justify=between align=center {
+        col gap=1 {
+          title "Currently Active Docket File: FIR-2026-CP-0512" level=2
+          text "Offense: Snatching with force (BNS 304) • Complainant: Aarav Mehta • Occurrence: Rajiv Chowk Metro Gate 2"
+        }
+        select "Switch Docket Case" placeholder="FIR-2026-CP-0512 (Aarav Mehta - Snatching)"
+      }
+    }
+
+    // ------------------------------------------------------------------------
+    // SECTION 3: DIGITAL CASE DIARY (CD) ENTRY LOG (BNSS SECTION 193)
+    // ------------------------------------------------------------------------
+    card p=6 border shadow=md {
+      row justify=between align=center {
+        col gap=1 {
+          title "Digital Case Diary (CD) Chronological Journal" level=2
+          text "Pursuant to BNSS Section 193, every day of investigation must be logged with timestamp, coordinates, and findings."
+        }
+        button "+ Add Daily CD Entry" primary
+      }
+
+      divider
+
+      table striped bordered {
+        columns ["CD Entry #", "Date & Time", "Investigation Site", "Investigating Officer", "Key Actions & Findings", "Evidence Attached", "SHO Verified"]
+        row ["CD-0512-003", "05 Nov 2026, 11:00", "Metro Gate 2, Rajiv Chowk", "SI Sunil Kumar", "Inspected site. Recovered broken 2g gold chain link near curb.", "DEMS-EV-901 (Photo)", "VERIFIED"]
+        row ["CD-0512-002", "04 Nov 2026, 17:30", "DMRC CCTV Control Room", "SI Sunil Kumar", "Examined feed of Exit Gate 2. Black Pulsar motorcycle spotted at 14:14 hrs.", "DEMS-EV-899 (CCTV)", "VERIFIED"]
+        row ["CD-0512-001", "04 Nov 2026, 15:00", "Connaught Place Police Station", "SI Sunil Kumar", "Took over case file from SHO. Issued notice to complainant Aarav Mehta.", "FIR Copy & Token", "VERIFIED"]
+      }
+    }
+
+    // ------------------------------------------------------------------------
+    // SECTION 4: WITNESS STATEMENTS (BNSS SECTION 180 ELECTRONIC RECORDING)
+    // ------------------------------------------------------------------------
+    card p=6 border shadow=md {
+      title "Witness Examination & Statement Registry (BNSS Section 180)" level=2
+      text "Audio-visual electronic recording is officially sanctioned under Section 180(3) of BNSS 2023."
+
+      row gap=6 {
+        col span=6 gap=4 {
+          card p=4 border {
+            title "Record New Witness Statement" level=3
+
+            row gap=4 {
+              col span=6 {
+                input "Witness Full Name" placeholder="Ramesh Chandra Sharma" required
+              }
+              col span=6 {
+                input "Mobile Number" placeholder="+91 9811223344" required
+              }
+            }
+
+            input "Residential / Business Address" placeholder="Shop 14, Radial Road 2, Connaught Place" required
+
+            row gap=4 {
+              col span=6 {
+                select "Relation to Incident" placeholder="Eyewitness (Shop Owner)"
+              }
+              col span=6 {
+                select "Recording Mode" placeholder="Audio-Video Electronic Recording (BNSS 180(3))"
+              }
+            }
+
+            textarea "Witness Statement verbatim transcription" placeholder="Enter witness facts: 'I was standing at my kiosk around 2:15 PM when I heard a shout. I saw a motorcycle speed away...'" rows=5
+
+            row justify=between align=center {
+              button "Attach Audio Recording" secondary
+              button "Save & Certify Statement" primary
+            }
+          }
+        }
+
+        col span=6 gap=4 {
+          card p=4 border {
+            title "Recorded Witnesses for This Docket" level=3
+
+            card p=3 border {
+              row justify=between align=center {
+                col gap=1 {
+                  text "Eyewitness 1: Ramesh Chandra Sharma (Shopkeeper)" bold
+                  text "Recorded: 05 Nov 2026, 11:45 hrs • Audio-Video Recorded" muted
+                }
+                badge "SIGNED & ADMISSIBLE" success
+              }
+            }
+
+            card p=3 border {
+              row justify=between align=center {
+                col gap=1 {
+                  text "Complainant: Aarav Mehta" bold
+                  text "Recorded: 04 Nov 2026, 15:30 hrs • Verbatim Formal Statement" muted
+                }
+                badge "SIGNED & ADMISSIBLE" success
+              }
+            }
+          }
+        }
+      }
+    }
+
+    // ------------------------------------------------------------------------
+    // SECTION 5: PROPERTY SEIZURE MEMO & CUSTODY LOCKER (BSA SECTION 63)
+    // ------------------------------------------------------------------------
+    card p=6 border shadow=md {
+      title "Property Seizure Memo & Digital Evidence Vault" level=2
+      text "All physical & digital recoveries are cryptographically locked into DEMS with Panchnama witnesses."
+
+      row gap=6 {
+        col span=6 gap=4 {
+          card p=4 border {
+            title "New Seizure Memo Creation" level=3
+
+            input "Article Description" placeholder="Broken 2-gram gold chain link recovered from road curb" required
+
+            row gap=4 {
+              col span=6 {
+                input "Panchnama Witness 1" placeholder="Vikas Gupta (+91 9811445566)" required
+              }
+              col span=6 {
+                input "Panchnama Witness 2" placeholder="Sandeep Nair (+91 9822334455)" required
+              }
+            }
+
+            row gap=4 {
+              col span=6 {
+                select "Property Nature" placeholder="Physical Stolen Article"
+              }
+              col span=6 {
+                select "Custody Location" placeholder="Thana Malkhana Locker #12"
+              }
+            }
+
+            button "Generate Panchnama Seizure Memo" primary
+          }
+        }
+
+        col span=6 gap=4 {
+          card p=4 border {
+            title "Seized Articles Linked to Case" level=3
+
+            card p=3 border {
+              text "Article 1: 2g Broken Gold Link" bold
+              text "Malkhana Vault: Box #12-A • Seized by SI Sunil Kumar" muted
+              badge "SHA-256 HASHED" success
+            }
+
+            card p=3 border {
+              text "Article 2: DMRC Exit CCTV Raw MP4 (180 MB)" bold
+              text "DEMS Locker • SHA-256: 7f83b1657ff1fc53b92dc18148a1d65..." muted
+              badge "BSA SEC 65B CERTIFIED" success
+            }
+          }
+        }
+      }
+    }
+
+    // ------------------------------------------------------------------------
+    // SECTION 6: FORM 5 / BNSS 193 FINAL REPORT & CHARGESHEET COMPILER
+    // ------------------------------------------------------------------------
+    card p=6 border shadow=md {
+      row justify=between align=center {
+        col gap=1 {
+          title "Final Report / Chargesheet Assembly (BNSS Section 193)" level=2
+          text "Auto-compiles complete IO investigation: FIR details, Case Diary summary, witness statements, and evidence ledger into court-ready Form 5."
+        }
+        button "Compile Court Chargesheet PDF" primary
+      }
+
+      row gap=4 {
+        col span=4 {
+          card p=3 border {
+            text "Chargesheet Readiness"
+            title "85% Complete" level=3
+            badge "Forensic Lab Pending" warning
+          }
+        }
+        col span=4 {
+          card p=3 border {
+            text "Accused Identified"
+            title "2 Suspects" level=3
+            badge "Notice Issued under Sec 35" primary
+          }
+        }
+        col span=4 {
+          card p=3 border {
+            text "Judicial Magistrate Target"
+            title "MM Court 02, Patiala House" level=3
+            badge "Within 60-Day Mandate" success
+          }
+        }
+      }
+    }
+  }
+
+  footer border p=4 {
+    row justify=between align=center {
+      text "Investigating Officer Digital Diary System • Delhi Police"
+      text "Mandated by Bharatiya Nagarik Suraksha Sanhita (BNSS 2023)"
+    }
+  }
+}

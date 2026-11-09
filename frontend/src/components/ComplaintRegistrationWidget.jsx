@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import api from '../services/api';
 import { 
   FileText, MapPin, Compass, ShieldAlert, CheckCircle, 
@@ -6,6 +7,9 @@ import {
 } from 'lucide-react';
 
 export default function ComplaintRegistrationWidget({ onComplaintCreated }) {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const locationState = location.state;
   const [stations, setStations] = useState([]);
   const [loading, setLoading] = useState(false);
   const [detectingGps, setDetectingGps] = useState(false);
@@ -32,7 +36,16 @@ export default function ComplaintRegistrationWidget({ onComplaintCreated }) {
 
   useEffect(() => {
     fetchStations();
-  }, []);
+    if (locationState) {
+      setForm(prev => ({
+        ...prev,
+        description: locationState.prefillDescription || prev.description,
+        incidentLocation: locationState.prefillLocation || prev.incidentLocation,
+        bnsSections: locationState.prefillBns || prev.bnsSections,
+        aiPredictedCategory: locationState.prefillCategory || prev.aiPredictedCategory
+      }));
+    }
+  }, [locationState]);
 
   const fetchStations = async () => {
     try {
@@ -80,13 +93,15 @@ export default function ComplaintRegistrationWidget({ onComplaintCreated }) {
     setAiAnalyzing(true);
     try {
       const res = await api.post('/ai/analyze-complaint', {
-        narrativeText: form.description,
+        complaintText: form.description.trim(),
         incidentLocation: form.incidentLocation || 'Incident Location'
       });
       if (res.data?.data) {
         const data = res.data.data;
         setAiSuggestions(data);
-        const sectionsStr = (data.applicableSections || []).map(s => s.sectionCode).join(', ');
+        const sectionsStr = Array.isArray(data.bnsSections) 
+          ? data.bnsSections.join(', ') 
+          : (data.primaryCategory || '');
         setForm(prev => ({
           ...prev,
           bnsSections: sectionsStr || data.primaryCategory,
@@ -169,15 +184,21 @@ export default function ComplaintRegistrationWidget({ onComplaintCreated }) {
             </div>
           </div>
 
-          <div className="pt-2">
+          <div className="pt-2 flex items-center justify-center gap-3">
             <button
               onClick={() => {
                 setSubmissionResult(null);
                 setAiSuggestions(null);
               }}
-              className="btn btn-warning btn-sm font-semibold shadow-sm"
+              className="btn btn-outline btn-warning btn-sm font-semibold shadow-xs"
             >
               File Another Complaint
+            </button>
+            <button
+              onClick={() => navigate('/citizen/complaints')}
+              className="btn btn-warning btn-sm font-bold shadow-sm"
+            >
+              View in My Complaints List
             </button>
           </div>
         </div>

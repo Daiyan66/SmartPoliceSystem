@@ -1,0 +1,187 @@
+page "Smart Police - Executive HQ Strategic Command & Crime Analytics" {
+  header border p=4 {
+    row justify=between align=center {
+      row align=center gap=3 {
+        title "STATE POLICE HQ & DISTRICT STRATEGIC COMMAND" level=3
+        badge "IPS Vikram Singh (SP Central District)" primary
+      }
+      row align=center gap=2 {
+        button "Provision Officer" primary
+        button "DBSCAN Cluster Engine" secondary
+        button "Station Clearance Ledger" secondary
+        button "Sign Out" secondary
+      }
+    }
+  }
+
+  main p=6 gap=6 {
+    // ------------------------------------------------------------------------
+    // SECTION 1: DISTRICT-WIDE STRATEGIC KPIS
+    // ------------------------------------------------------------------------
+    row gap=4 {
+      col span=3 {
+        card p=4 border shadow=md {
+          text "District Crime Clearance Rate"
+          title "78.4%" level=2
+          badge "+4.2% MoM Improvement" success
+        }
+      }
+      col span=3 {
+        card p=4 border shadow=md {
+          text "Total e-FIRs Registered (18 Thanas)"
+          title "1,420 Cases" level=2
+          badge "94% Under Statutory Limit" primary
+        }
+      }
+      col span=3 {
+        card p=4 border shadow=md {
+          text "Avg. 112 Response Time"
+          title "4.6 Minutes" level=2
+          badge "Faster by 1.4 Mins" success
+        }
+      }
+      col span=3 {
+        card p=4 border shadow=md {
+          text "DBSCAN High-Risk Hotspots"
+          title "3 Active Clusters" level=2
+          badge "Night Patrols Reinforced" warning
+        }
+      }
+    }
+
+    // ------------------------------------------------------------------------
+    // SECTION 2: SPHERICAL HAVERSINE DBSCAN CLUSTERING & CRIME INTELLIGENCE
+    // ------------------------------------------------------------------------
+    card p=6 border shadow=md {
+      row justify=between align=center {
+        col gap=1 {
+          title "DBSCAN Spatial Density Clustering (No Euclidean Distortion)" level=2
+          text "Native spherical trigonometry clusters criminal activity, calculates centroid risk radiuses, and identifies peak 24-hr vulnerability windows."
+        }
+        button "Re-run Spatial Clustering" secondary
+      }
+
+      divider
+
+      row gap=4 {
+        col span=4 {
+          card p=4 border {
+            badge "CLUSTER 01: CRITICAL RISK" danger
+            title "Rajiv Chowk Metro Periphery" level=3
+            text "Centroid: 28.6320° N, 77.2170° E • Radius: 320 meters"
+            text "Incidents: 14 Snatching & Pickpocketing Reports"
+            divider
+            text "Peak Vulnerability Window: 18:30 - 22:00 hrs" bold
+            button "Reinforce Foot Patrols" danger
+          }
+        }
+
+        col span=4 {
+          card p=4 border {
+            badge "CLUSTER 02: HIGH RISK" warning
+            title "Janpath Outer Corridor" level=3
+            text "Centroid: 28.6285° N, 77.2210° E • Radius: 450 meters"
+            text "Incidents: 8 Vehicle & Mobile Theft Reports"
+            divider
+            text "Peak Vulnerability Window: 22:00 - 02:00 hrs" bold
+            button "Deploy Static PCR Van" secondary
+          }
+        }
+
+        col span=4 {
+          card p=4 border {
+            badge "CLUSTER 03: MEDIUM RISK" primary
+            title "Barakhamba Commercial Zone" level=3
+            text "Centroid: 28.6295° N, 77.2270° E • Radius: 280 meters"
+            text "Incidents: 5 Night Break-in Grievances"
+            divider
+            text "Peak Vulnerability Window: 01:00 - 04:30 hrs" bold
+            button "Schedule Beat Check-in" secondary
+          }
+        }
+      }
+    }
+
+    // ------------------------------------------------------------------------
+    // SECTION 3: THANA PERFORMANCE & CRIME CLEARANCE LEDGER
+    // ------------------------------------------------------------------------
+    card p=6 border shadow=md {
+      row justify=between align=center {
+        title "Thana Operations Benchmark & Case Disposal Ledger" level=2
+        input "Filter Police Station..." placeholder="Connaught Place, Karol Bagh..."
+      }
+
+      table striped bordered {
+        columns ["Police Station", "Station House Officer (SHO)", "Total Registered", "Chargesheeted (BNSS 193)", "Clearance %", "Avg Response Time", "Overall Rating"]
+        row ["Connaught Place Thana", "Insp. Rajesh Sharma", "184 Cases", "152 Cases", "82.6%", "4.2 mins", "TOP PERFORMER"]
+        row ["Barakhamba Road Thana", "Insp. Alok Mathur", "142 Cases", "110 Cases", "77.4%", "4.8 mins", "MEETS TARGET"]
+        row ["Mandir Marg Thana", "Insp. Sandeep Tyagi", "98 Cases", "74 Cases", "75.5%", "5.1 mins", "MEETS TARGET"]
+        row ["Parliament Street Thana", "Insp. Vikramaditya", "112 Cases", "96 Cases", "85.7%", "3.9 mins", "TOP PERFORMER"]
+      }
+    }
+
+    // ------------------------------------------------------------------------
+    // SECTION 4: ADMINISTRATIVE OFFICER PROVISIONING & ROSTER DESK
+    // ------------------------------------------------------------------------
+    card p=6 border shadow=md {
+      row justify=between align=center {
+        col gap=1 {
+          title "Administrative Police Officer Provisioning Desk" level=2
+          text "State Police HQ administrative credential issuance with zero-trust RBAC and station boundary assignment."
+        }
+        button "+ Provision New Officer" primary
+      }
+
+      row gap=6 {
+        col span=6 gap=4 {
+          input "Officer Full Name & Title" placeholder="e.g. Inspector Ramesh Kumar" required
+
+          row gap=4 {
+            col span=6 {
+              input "Official Mobile Number" placeholder="e.g. 9876543219" required
+            }
+            col span=6 {
+              input "Government Email" placeholder="e.g. ramesh.pol@delhipolice.gov.in" required
+            }
+          }
+
+          row gap=4 {
+            col span=6 {
+              select "Assigned Role" placeholder="ROLE_SUB_INSPECTOR (Investigating Officer)"
+            }
+            col span=6 {
+              select "Jurisdiction Police Station" placeholder="Connaught Place Thana (DL-ND-CP-01)"
+            }
+          }
+
+          input "Temporary Cryptographic Password" placeholder="Police@9281" required
+
+          button "Authorize & Issue Officer Credentials" primary
+        }
+
+        col span=6 gap=4 {
+          card p=4 border {
+            title "Recent Officer Provisioning Audit Log" level=3
+            card p=3 border {
+              text "SI Sunil Kumar • POL-SI-004" bold
+              text "Connaught Place Thana • Assigned: 01 Nov 2026" muted
+              badge "ACTIVE ON ROSTER" success
+            }
+            card p=3 border {
+              text "Ct. Amit Yadav • POL-CT-005" bold
+              text "Connaught Place Beat 01 • Assigned: 01 Nov 2026" muted
+              badge "ACTIVE ON ROSTER" success
+            }
+          }
+        }
+      }
+    }
+  }
+
+  footer border p=4 {
+    row justify=between align=center {
+      text "Director General of Police (DGP) State Command Center"
+      text "National Crime Records Bureau (NCRB) & CCTNS Core Analytics Interface"
+    }
+  }
+}

@@ -1,0 +1,160 @@
+page "Smart Police - DEMS Evidence Vault & BSA 2023 Forensic Custody" {
+  header border p=4 {
+    row justify=between align=center {
+      row align=center gap=3 {
+        title "DEMS FORENSIC EVIDENCE VAULT & CUSTODY LEDGER" level=3
+        badge "Bharatiya Sakshya Adhiniyam (BSA 2023)" primary
+      }
+      row align=center gap=2 {
+        badge "Evidence Custodian: Insp. Neha Singhal (POL-DEMS-009)" neutral
+        button "Verify Hash Integrity" secondary
+        button "Generate BSA 63 Certificate" primary
+        button "Sign Out" secondary
+      }
+    }
+  }
+
+  main p=6 gap=6 {
+    // ------------------------------------------------------------------------
+    // SECTION 1: EVIDENCE REPOSITORY METRICS
+    // ------------------------------------------------------------------------
+    row gap=4 {
+      col span=3 {
+        card p=4 border shadow=md {
+          text "Total Digital Artifacts"
+          title "428 Items" level=2
+          badge "100% SHA-256 Hashed" success
+        }
+      }
+      col span=3 {
+        card p=4 border shadow=md {
+          text "BSA 63/65B Certificates"
+          title "112 Generated" level=2
+          badge "Court Admissible" primary
+        }
+      }
+      col span=3 {
+        card p=4 border shadow=md {
+          text "Chain of Custody Verifications"
+          title "1,894 Events" level=2
+          badge "Zero Tampering Detected" success
+        }
+      }
+      col span=3 {
+        card p=4 border shadow=md {
+          text "Forensic Lab Submissions"
+          title "18 Pending FSL" level=2
+          badge "FSL Rohini Acknowledged" neutral
+        }
+      }
+    }
+
+    // ------------------------------------------------------------------------
+    // SECTION 2: DIGITAL EVIDENCE INGESTION & EXIF METADATA SCRUBBER
+    // ------------------------------------------------------------------------
+    card p=6 border shadow=md {
+      title "Secure Digital Evidence Ingestion & Streaming Hash Ingestion" level=2
+      text "Direct streaming SHA-256 calculation guarantees tamper-evident provenance without intermediate unhashed storage."
+
+      row gap=6 {
+        col span=6 gap=4 {
+          select "Associated Case / Complaint Token" placeholder="FIR-DL-ND-2026-894102 (Aarav Mehta - Snatching)"
+
+          input "Select Evidence Media (Video, CCTV, Audio, Disk Image)" placeholder="Browse file from local forensic workstation..."
+
+          row gap=4 {
+            col span=6 {
+              select "Evidence Category" placeholder="CCTV Surveillance Video"
+            }
+            col span=6 {
+              select "Seizing Officer" placeholder="SI Sunil Kumar (POL-SI-004)"
+            }
+          }
+
+          checkbox "Scrub EXIF Metadata (Protect Anonymous Whistleblower / Victim Identity)" checked
+
+          button "Ingest & Calculate SHA-256 Hash" primary
+        }
+
+        col span=6 gap=4 {
+          card p=4 border {
+            title "Real-Time Cryptographic Verification Preview" level=3
+            text "File Name: cctv_grab_metro_exit_gate2.mp4 (184.2 MB)" bold
+            text "MIME Type: video/mp4 • Codec: H.264"
+            divider
+            text "Computed SHA-256 Hash:" bold
+            text "7f83b1657ff1fc53b92dc18148a1d65dfc2d4b1fa3d677284addd200126d9069" bold
+            divider
+            badge "HASH VERIFIED • ZERO TAMPERING" success
+            text "Timestamp Locked: 05 Nov 2026, 12:15:02 IST (NTP Delhi Sync)"
+          }
+        }
+      }
+    }
+
+    // ------------------------------------------------------------------------
+    // SECTION 3: IMMUTABLE CHAIN OF CUSTODY (CoC) LEDGER
+    // ------------------------------------------------------------------------
+    card p=6 border shadow=md {
+      row justify=between align=center {
+        col gap=1 {
+          title "Chain of Custody (CoC) Audit Trail" level=2
+          text "Every download, inspection, or transfer is cryptographically stamped pursuant to BSA Section 63."
+        }
+        button "Export Audit Log" secondary
+      }
+
+      table striped bordered {
+        columns ["Evidence Token", "File Name", "Case Docket", "Seized By", "SHA-256 Hash Checksum", "Current Custodian", "Court Status"]
+        row ["DEMS-EV-899", "cctv_grab_metro_exit.mp4", "FIR-2026-CP-0512", "SI Sunil Kumar", "7f83b165...126d9069", "Thana DEMS Vault", "BSA 63 CERTIFIED"]
+        row ["DEMS-EV-901", "gold_link_photo_macro.jpg", "FIR-2026-CP-0512", "SI Sunil Kumar", "e3b0c442...7852b855", "Malkhana Vault Box #12", "BSA 63 CERTIFIED"]
+        row ["DEMS-EV-764", "upi_bank_transaction_logs.csv", "FIR-2026-CP-0498", "Insp. Rajesh Sharma", "9a2f1b40...cc810992", "Cyber Cell Server", "PENDING COURT"]
+        row ["DEMS-EV-610", "sos_audio_stream_distress.wav", "SOS-2026-89104", "Control Room Dispatch", "3d881920...aa192800", "Encrypted Cloud Arch.", "ADMISSIBLE"]
+      }
+    }
+
+    // ------------------------------------------------------------------------
+    // SECTION 4: BHARATIYA SAKSHYA ADHINIYAM (BSA 2023) SECTION 63 CERTIFICATE
+    // ------------------------------------------------------------------------
+    card p=6 border shadow=md {
+      row justify=between align=center {
+        col gap=1 {
+          title "BSA Section 63 Electronic Record Certificate Generator" level=2
+          text "Official statutory certificate required for presenting electronic evidence in judicial courts without physical server seizure."
+        }
+        button "Download Judicial Certificate PDF" primary
+      }
+
+      row gap=4 {
+        col span=4 {
+          card p=4 border {
+            text "Statutory Section"
+            title "Section 63 BSA 2023" level=3
+            text "Replaces Section 65B of former Indian Evidence Act"
+          }
+        }
+        col span=4 {
+          card p=4 border {
+            text "Certifying Authority"
+            title "Inspector Neha Singhal" level=3
+            text "Designated Officer in Charge of DEMS Computer System"
+          }
+        }
+        col span=4 {
+          card p=4 border {
+            text "Computer System Condition"
+            title "100% Normal Operation" level=3
+            text "No unauthorized alteration or system malfunction recorded"
+          }
+        }
+      }
+    }
+  }
+
+  footer border p=4 {
+    row justify=between align=center {
+      text "Digital Evidence Management System (DEMS) • Delhi Police Central Forensic Node"
+      text "Compliant with Bharatiya Sakshya Adhiniyam 2023 & ISO/IEC 27037 Digital Forensics"
+    }
+  }
+}

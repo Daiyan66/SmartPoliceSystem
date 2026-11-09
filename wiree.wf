@@ -1,14 +1,138 @@
-page "Login" {
-  main p=8 {
-    row justify=center {
-      col span=4 {
-        card p=6 {
-          title "Sign In" level=2
-          input "Email" inputType=email required
-          input "Password" inputType=password required
-          button "Sign In" primary
+page "Smart Police System - Master Architecture & Wireframe Navigation Hub" {
+  header border p=4 {
+    row justify=between align=center {
+      row align=center gap=3 {
+        title "SMART POLICE SYSTEM (SPS)" level=3
+        badge "All-India Digital Policing & CCTNS Architecture" primary
+      }
+      row align=center gap=2 {
+        badge "Aligned: BNS 2023 • BNSS 2023 • BSA 2023" success
+        button "Explore Wireframes" primary
+      }
+    }
+  }
+
+  main p=6 gap=6 {
+    // ------------------------------------------------------------------------
+    // MASTER ARCHITECTURE OVERVIEW BANNER
+    // ------------------------------------------------------------------------
+    card p=6 border shadow=md {
+      title "Comprehensive System Architecture & Role Wireframes" level=1
+      text "Select any role below to review its dedicated wireframe in the /wireframes folder (Open with Ctrl+K then V):"
+
+      divider
+
+      row gap=4 {
+        col span=4 {
+          card p=4 border {
+            badge "01: CITIZEN SAFETY PORTAL" primary
+            title "Citizen Public Safety Desk" level=3
+            text "File e-FIR & Zero-FIR, live 112 SOS beacon, Rakshak AI BNS legal guidance, and real-time case progression timeline."
+            divider
+            text "File: wireframes/01_citizen_portal.wf" bold
+            button "View Citizen Wireframe" primary
+          }
+        }
+
+        col span=4 {
+          card p=4 border {
+            badge "02: SHO OPERATIONS HUB" warning
+            title "Thana Operations Desk" level=3
+            text "Station House Officer console: Scrutinize e-FIRs, allocate CRN numbers, assign IOs, issue BNSS 173 reasoned orders, and Zero-FIR transfers."
+            divider
+            text "File: wireframes/02_sho_thana_operations.wf" bold
+            button "View SHO Wireframe" primary
+          }
+        }
+
+        col span=4 {
+          card p=4 border {
+            badge "03: IO CASE DIARY WORKSPACE" success
+            title "IO Digital Investigation" level=3
+            text "Sub-Inspector / ASI docket: Chronological Digital Case Diary (CD) entries under BNSS 193, Sec 180 witness statements, and seizure memos."
+            divider
+            text "File: wireframes/03_io_investigation_case_diary.wf" bold
+            button "View IO Wireframe" primary
+          }
         }
       }
+
+      divider
+
+      row gap=4 {
+        col span=4 {
+          card p=4 border {
+            badge "04: 112 CAD DISPATCH" danger
+            title "Central CAD & Beat Patrol" level=3
+            text "Station Control Room: Real-time WebSocket distress radar, nearest patrol PCR van deployment, and beat constable mobile operations."
+            divider
+            text "File: wireframes/04_dispatch_and_patrol.wf" bold
+            button "View CAD Dispatch Wireframe" primary
+          }
+        }
+
+        col span=4 {
+          card p=4 border {
+            badge "05: DEMS EVIDENCE VAULT" neutral
+            title "DEMS Forensic Evidence Vault" level=3
+            text "Chain of Custody (CoC) ledger, direct streaming SHA-256 hash calculation, EXIF scrubber, and BSA 2023 Sec 63 certificate generator."
+            divider
+            text "File: wireframes/05_dems_evidence_vault.wf" bold
+            button "View DEMS Wireframe" primary
+          }
+        }
+
+        col span=4 {
+          card p=4 border {
+            badge "06: HQ COMMAND & ANALYTICS" primary
+            title "Executive HQ Command Center" level=3
+            text "District SP & State DGP: Spherical Haversine DBSCAN spatial crime clustering, 24-hr peak danger windows, and officer credential provisioning."
+            divider
+            text "File: wireframes/06_executive_command_analytics.wf" bold
+            button "View HQ Command Wireframe" primary
+          }
+        }
+      }
+    }
+
+    // ------------------------------------------------------------------------
+    // REGULATORY & STATUTORY COMPLIANCE PILLARS
+    // ------------------------------------------------------------------------
+    card p=5 border shadow=md {
+      title "Core Legal & Security Standards Implemented" level=2
+      row gap=4 {
+        col span=3 {
+          card p=3 border {
+            title "Bharatiya Nyaya Sanhita (BNS 2023)" level=4
+            text "Replaces IPC 1860. Maps snatching (Sec 304), cyber offenses, organized crime, and modern statutory penalties."
+          }
+        }
+        col span=3 {
+          card p=3 border {
+            title "Bharatiya Nagarik Suraksha Sanhita (BNSS)" level=4
+            text "Replaces CrPC 1973. Mandates e-FIR (Sec 173), audio-video witness recording (Sec 180), and electronic Case Diary (Sec 193)."
+          }
+        }
+        col span=3 {
+          card p=3 border {
+            title "Bharatiya Sakshya Adhiniyam (BSA 2023)" level=4
+            text "Replaces IEA 1872. Section 63 electronic record certificates and SHA-256 cryptographic chain of custody."
+          }
+        }
+        col span=3 {
+          card p=3 border {
+            title "CCTNS & Zero-Trust Security" level=4
+            text "Stateless JWT, rotating refresh tokens, Bucket4j rate limiting, and zero-trust Role-Based Access Control (RBAC)."
+          }
+        }
+      }
+    }
+  }
+
+  footer border p=4 {
+    row justify=between align=center {
+      text "Smart Police System • Multi-Role Wireframe Specification Index"
+      text "Open any .wf file in /wireframes with Ctrl+K then V in VS Code"
     }
   }
 }

@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import api from '../services/api';
-import { Sparkles, AlertTriangle, Globe } from 'lucide-react';
+import { Sparkles, AlertTriangle, Globe, FileText, ArrowRight } from 'lucide-react';
 
 export default function ComplaintAiAnalyzer() {
+  const navigate = useNavigate();
   const [complaintText, setComplaintText] = useState('');
   const [location, setLocation] = useState('');
   const [loading, setLoading] = useState(false);
@@ -217,6 +219,26 @@ export default function ComplaintAiAnalyzer() {
               <span className="text-slate-500 block text-[10px] uppercase font-bold">Stolen Property</span>
               <span className="text-slate-900 font-semibold">{result.stolenProperty || 'None'}</span>
             </div>
+          </div>
+
+          {/* Action: Convert to e-FIR */}
+          <div className="pt-2">
+            <button
+              type="button"
+              onClick={() => navigate('/citizen/file-fir', {
+                state: {
+                  prefillDescription: result.translatedEnglishSummary || complaintText,
+                  prefillLocation: result.location || location,
+                  prefillBns: Array.isArray(result.bnsSections) ? result.bnsSections.join(', ') : '',
+                  prefillCategory: result.primaryCategory || ''
+                }
+              })}
+              className="btn btn-warning btn-sm font-bold w-full shadow-sm gap-2 text-slate-950"
+            >
+              <FileText className="w-4 h-4" />
+              Convert this AI Analysis into Official e-FIR Draft
+              <ArrowRight className="w-4 h-4" />
+            </button>
           </div>
         </div>
       )}

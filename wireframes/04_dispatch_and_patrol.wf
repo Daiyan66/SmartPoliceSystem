@@ -1,0 +1,159 @@
+page "Smart Police - 112 CAD Emergency Dispatch & Beat Patrol Console" {
+  header border p=4 {
+    row justify=between align=center {
+      row align=center gap=3 {
+        title "112 CENTRAL CAD DISPATCH & BEAT PATROL CONSOLE" level=3
+        badge "Live WebSocket STOMP Active" danger
+      }
+      row align=center gap=2 {
+        badge "Control Room Operator: ASI Meena (POL-CR-012)" neutral
+        button "Broadcast Thana Alert" danger
+        button "PCR Fleet Status" secondary
+        button "Sign Out" secondary
+      }
+    }
+  }
+
+  main p=6 gap=6 {
+    // ------------------------------------------------------------------------
+    // SECTION 1: EMERGENCY CAD DISPATCH METRICS
+    // ------------------------------------------------------------------------
+    row gap=4 {
+      col span=3 {
+        card p=4 border shadow=md {
+          text "Active 112 SOS Distress"
+          title "1 In-Progress" level=2
+          badge "PCR Unit En Route" danger
+        }
+      }
+      col span=3 {
+        card p=4 border shadow=md {
+          text "Average Police Response Time"
+          title "4.8 Minutes" level=2
+          badge "Well Under 8-Min Target" success
+        }
+      }
+      col span=3 {
+        card p=4 border shadow=md {
+          text "Patrol Units on Beat"
+          title "6 Mobile Units" level=2
+          badge "100% District Coverage" primary
+        }
+      }
+      col span=3 {
+        card p=4 border shadow=md {
+          text "Distress Resolved Today"
+          title "12 Incidents" level=2
+          badge "Zero Casualty Record" success
+        }
+      }
+    }
+
+    // ------------------------------------------------------------------------
+    // SECTION 2: LIVE EMERGENCY DISTRESS RADAR & CAD QUEUE
+    // ------------------------------------------------------------------------
+    card p=6 border shadow=md {
+      row justify=between align=center {
+        col gap=1 {
+          title "Live Incoming 112 Distress Calls & Geolocation Feed" level=2
+          text "Real-time dispatch using Haversine nearest patrol allocation and live telemetry."
+        }
+        badge "SOCKET CONNECTED: /topic/sos/broadcast" success
+      }
+
+      divider
+
+      table striped bordered {
+        columns ["SOS Alert ID", "Citizen / Victim", "Live GPS Coordinates", "Distance from Thana", "Nearest Available Unit", "Dispatch Status", "CAD Action"]
+        row ["SOS-2026-89104", "Sunita Sharma (+91 9811443322)", "28.6321° N, 77.2185° E (Janpath)", "0.38 km away", "PCR Van 04 (0.2 km)", "EN ROUTE (ETA 2 MINS)", "Open Live Telemetry"]
+        row ["SOS-2026-89098", "Rahul Kapoor (+91 9822331100)", "28.6290° N, 77.2201° E (Barakhamba)", "0.95 km away", "PCR Van 02 (Janpath)", "AT SCENE / RESOLVED", "View Incident Report"]
+        row ["SOS-2026-89072", "Priya Nair (+91 9810998877)", "28.6350° N, 77.2140° E (Outer Circle)", "0.62 km away", "Beat Ct. Amit Yadav", "ASSISTED / SAFE", "Archive Call"]
+      }
+    }
+
+    // ------------------------------------------------------------------------
+    // SECTION 3: REAL-TIME ACTIVE SOS INCIDENT TELEMETRY DRAWER
+    // ------------------------------------------------------------------------
+    card p=6 border shadow=md {
+      title "Active Distress Session: SOS-2026-89104 (Sunita Sharma)" level=2
+      text "Emergency Signal Triggered: 3 mins ago • Location: Opposite Janpath Handicrafts Market"
+
+      row gap=6 {
+        col span=6 gap=4 {
+          card p=4 border {
+            title "Live Victim GPS Telemetry" level=3
+            text "Latitude: 28.632104° N • Longitude: 77.218512° E" bold
+            text "GPS Fix Accuracy: 3.2 meters • Altitude: 216m"
+            text "Reverse Geocoded: Stall 42, Janpath Lane, Connaught Place"
+            divider
+            badge "GPS SIGNAL LOCKED & UPDATING" success
+            row justify=between align=center {
+              text "Emergency Contacts SMS Dispatched:"
+              text "Husband (+91 9811998811), Sister (+91 9811887722)" bold
+            }
+          }
+
+          card p=4 border {
+            title "Live Background Audio Feed (Encrypted in DEMS)" level=3
+            text "Audio streaming active pursuant to emergency citizen authorization."
+            button "Listen to Live Distress Stream" danger
+          }
+        }
+
+        col span=6 gap=4 {
+          card p=4 border {
+            title "Rapid Response Unit Deployment" level=3
+
+            select "Dispatch Assigned Patrol Unit" placeholder="PCR Van 04 (ASI Ramesh & Ct. Satish)"
+
+            row gap=4 {
+              col span=6 {
+                text "Unit Distance: 240 meters away" bold
+              }
+              col span=6 {
+                text "Estimated Arrival: 1 min 45 sec" bold
+              }
+            }
+
+            textarea "Dispatcher Notes & Radio Directives" placeholder="Advised PCR Van 04 to approach from Janpath Radial Road with sirens on..." rows=3
+
+            divider
+
+            row justify=between align=center {
+              button "Mark as False Alarm (Require Citizen PIN)" secondary
+              row gap=2 {
+                button "Escalate to SWAT / Reinforcements" secondary
+                button "CONFIRM ON-SCENE ARRIVAL" primary
+              }
+            }
+          }
+        }
+      }
+    }
+
+    // ------------------------------------------------------------------------
+    // SECTION 4: THANA PATROL FLEET & BEAT ROSTER
+    // ------------------------------------------------------------------------
+    card p=6 border shadow=md {
+      row justify=between align=center {
+        title "Patrol Fleet & Beat Constable Status" level=2
+        button "+ Add Patrol Vehicle" secondary
+      }
+
+      table striped bordered {
+        columns ["Patrol Unit", "Vehicle Reg", "Crew in Charge", "Assigned Beat", "Current GPS Location", "Operational Status"]
+        row ["PCR Van 01", "DL-1P-9021", "Ct. Amit Yadav & Driver Ct. Rakesh", "Beat 01 (Outer Circle)", "Near Radial Road 4", "ON ACTIVE PATROL"]
+        row ["PCR Van 02", "DL-1P-9022", "Ct. Manoj & Driver Ct. Suresh", "Beat 03 (Janpath / Tolstoy)", "Janpath Intersection", "ON ACTIVE PATROL"]
+        row ["PCR Van 04", "DL-1P-9024", "ASI Ramesh & Ct. Satish", "Beat 02 (Rajiv Chowk Metro)", "Radial Road 2", "DISPATCHED TO SOS"]
+        row ["Foot Beat Unit A", "Motorcycle POL-99", "Ct. Dinesh Kumar", "Inner Circle Market Walkway", "Block C Walkway", "FOOT PATROL CHECK-IN"]
+      }
+    }
+  }
+
+  footer border p=4 {
+    row justify=between align=center {
+      text "National Emergency Response Support System (ERSS - Dial 112)"
+      text "Integrated Police Command & Control Centre (IPCCC)"
+    }
+  }
+}

@@ -1,0 +1,433 @@
+page "Smart Police - Citizen Public Safety & Justice Portal" {
+  header border p=4 {
+    row justify=between align=center {
+      row align=center gap=3 {
+        title "SMART POLICE CITIZEN PORTAL" level=3
+        badge "CCTNS & BSA 2023 Certified" primary
+      }
+      row align=center gap=2 {
+        button "112 SOS Emergency" danger
+        button "File e-FIR" primary
+        button "Track Complaint" secondary
+        button "Aarav Mehta (Citizen)" secondary
+      }
+    }
+  }
+
+  main p=6 gap=6 {
+    // ------------------------------------------------------------------------
+    // SECTION 1: EMERGENCY DISTRESS & 112 QUICK ACTION
+    // ------------------------------------------------------------------------
+    card p=5 border shadow=md {
+      row justify=between align=center {
+        col gap=1 {
+          badge "DIAL 112" danger
+          title "National Emergency Distress Network" level=2
+          text "Instant police PCR dispatch with browser GPS telemetry and nearest Thana locator."
+        }
+        button "TRIGGER 112 SOS DISTRESS NOW" danger
+      }
+    }
+
+    // ------------------------------------------------------------------------
+    // SECTION 2: CITIZEN CORE SAFETY SERVICES
+    // ------------------------------------------------------------------------
+    title "Public Safety Services & Digital Access" level=2
+    row gap=4 {
+      col span=3 {
+        card p=5 border shadow=md {
+          badge "BNSS Sec 173" primary
+          title "File Online e-FIR" level=3
+          text "Directly submit cognizable offense complaints or Zero-FIR without Thana delay."
+          divider
+          button "Launch e-FIR Wizard" primary
+        }
+      }
+
+      col span=3 {
+        card p=5 border shadow=md {
+          badge "2-Step OTP" success
+          title "Track Complaint Status" level=3
+          text "Real-time case inquiry progress, assigned IO contact, and official FIR copy."
+          divider
+          button "Track by Token" secondary
+        }
+      }
+
+      col span=3 {
+        card p=5 border shadow=md {
+          badge "BNS 2023 AI" warning
+          title "Rakshak Legal Advisor" level=3
+          text "Describe what happened in plain words. AI maps applicable BNS sections and rights."
+          divider
+          button "Consult Rakshak AI" secondary
+        }
+      }
+
+      col span=3 {
+        card p=5 border shadow=md {
+          badge "GIS Live" neutral
+          title "Public Safety Heatmap" level=3
+          text "View local crime trends, safe movement corridors, and beat patrol presence."
+          divider
+          button "Explore Safety Map" secondary
+        }
+      }
+    }
+
+    // ------------------------------------------------------------------------
+    // SECTION 3: MY REGISTERED COMPLAINTS & CASE PROGRESSION TIMELINE
+    // ------------------------------------------------------------------------
+    card p=6 border shadow=md {
+      row justify=between align=center {
+        col gap=1 {
+          title "My Registered Complaints & Investigation Progress" level=2
+          text "Direct digital updates from Thana Case Diary pursuant to BNSS Section 193."
+        }
+        button "+ File New e-FIR / Complaint" primary
+      }
+
+      divider
+
+      row gap=4 {
+        col span=3 {
+          card p=4 border {
+            text "Total Complaints"
+            title "3" level=2
+          }
+        }
+        col span=3 {
+          card p=4 border {
+            text "Under Preliminary Inquiry"
+            title "1" level=2
+          }
+        }
+        col span=3 {
+          card p=4 border {
+            text "FIR Registered & Active"
+            title "1" level=2
+          }
+        }
+        col span=3 {
+          card p=4 border {
+            text "Chargesheet Filed / Closed"
+            title "1" level=2
+          }
+        }
+      }
+
+      divider
+
+      table striped bordered {
+        columns ["Tracking Token", "Crime Category", "Date Filed", "Jurisdiction Thana", "Status", "Assigned IO", "Actions"]
+        row ["FIR-DL-ND-2026-894102", "Snatching & Robbery (BNS 304)", "04 Nov 2026", "Connaught Place Thana", "INVESTIGATION ONGOING", "SI Sunil Kumar (9876543213)", "View Progress"]
+        row ["FIR-DL-ND-2026-104921", "Online UPI Banking Cyber Fraud", "28 Oct 2026", "Cyber Police Station ND", "CRN ALLOCATED (FIR #412/26)", "Insp. Rajesh Sharma", "Download FIR PDF"]
+        row ["FIR-DL-ND-2026-003819", "Lost Mobile Phone Grievance", "15 Sep 2026", "Barakhamba Road Thana", "FINAL REPORT / CLOSED", "ASI Ramesh Chandra", "View Closure Memo"]
+      }
+
+      divider
+
+      // Selected Case Progression Timeline
+      card p=5 border {
+        title "Active Case Timeline: FIR-DL-ND-2026-894102 (BNS 304 Snatching)" level=3
+        row gap=4 {
+          col span=3 {
+            badge "COMPLETED" success
+            title "1. e-FIR Registered" level=4
+            text "Submitted online with GPS timestamp & signed OTP."
+            text "04 Nov 2026, 14:32"
+          }
+          col span=3 {
+            badge "COMPLETED" success
+            title "2. SHO Scrutiny & CRN" level=4
+            text "Cognizable offence validated under BNS Sec 304. FIR #512 generated."
+            text "04 Nov 2026, 16:15"
+          }
+          col span=3 {
+            badge "IN PROGRESS" primary
+            title "3. IO Assigned & Evidence" level=4
+            text "SI Sunil Kumar assigned. CCTV footage collected from Metro Gate 2."
+            text "05 Nov 2026, 11:00"
+          }
+          col span=3 {
+            badge "PENDING" neutral
+            title "4. Court Final Report" level=4
+            text "Chargesheet compilation under BNSS Sec 193 pending judicial submission."
+            text "Target: 60 Days"
+          }
+        }
+
+        divider
+
+        row justify=between align=center {
+          row gap=2 {
+            button "Upload Additional Evidence (Photos/Videos)" primary
+            button "Contact Investigating Officer" secondary
+          }
+          button "Download Certified e-FIR PDF" secondary
+        }
+      }
+    }
+
+    // ------------------------------------------------------------------------
+    // SECTION 4: STEP-BY-STEP e-FIR & ZERO-FIR FILING WIZARD
+    // ------------------------------------------------------------------------
+    card p=6 border shadow=md {
+      title "Step-by-Step Online e-FIR Filing Wizard (BNSS Section 173)" level=2
+      text "Zero-FIR capability: If incident occurred outside your home district, it will be automatically transferred to the appropriate Thana."
+
+      row gap=4 {
+        badge "Step 1: Incident Location" primary
+        badge "Step 2: Grievance Facts" neutral
+        badge "Step 3: Suspect & Witnesses" neutral
+        badge "Step 4: Evidence Upload (DEMS)" neutral
+        badge "Step 5: OTP e-Sign Verification" neutral
+      }
+
+      divider
+
+      row gap=6 {
+        col span=8 gap=4 {
+          row gap=4 {
+            col span=6 {
+              input "Date of Occurrence" placeholder="DD/MM/YYYY" required
+            }
+            col span=6 {
+              input "Approximate Time" placeholder="HH:MM AM/PM" required
+            }
+          }
+
+          input "Exact Location / Landmark" placeholder="e.g. Near Rajiv Chowk Metro Gate 2" required
+
+          row gap=4 {
+            col span=6 {
+              select "State / Union Territory" placeholder="Select State (e.g. Delhi NCT)"
+            }
+            col span=6 {
+              select "Nearest Police Station" placeholder="Auto-detected: Connaught Place Thana"
+            }
+          }
+
+          textarea "Detailed Incident Facts" placeholder="Describe clearly what happened, items stolen, or injuries..." rows=5
+
+          row gap=4 {
+            col span=6 {
+              select "Category of Offense" placeholder="Theft / Robbery / Snatching / Cyber / Assault"
+            }
+            col span=6 {
+              input "Estimated Financial Loss (in INR)" placeholder="e.g. 50000"
+            }
+          }
+
+          input "Upload Evidence Documents (Photos, Videos, PDFs)" placeholder="Browse files..."
+
+          row justify=between align=center {
+            button "Save as Draft" secondary
+            row gap=2 {
+              button "Back" secondary
+              button "Submit with 6-Digit OTP e-Sign" primary
+            }
+          }
+        }
+
+        col span=4 gap=4 {
+          card p=4 border {
+            badge "Rakshak AI Legal Assist" warning
+            title "AI Legal Assessment" level=3
+            text "BNS 2023 Analysis:"
+            text "• BNS Section 304: Snatching"
+            text "• Classification: COGNIZABLE"
+            text "Police MUST register FIR immediately without delay under Section 173(1) BNSS."
+            divider
+            text "Citizen Rights:"
+            text "• Free copy of registered FIR."
+            text "• Tracking updates via SMS."
+          }
+        }
+      }
+    }
+
+    // ------------------------------------------------------------------------
+    // SECTION 5: 112 EMERGENCY DISTRESS SOS CONSOLE
+    // ------------------------------------------------------------------------
+    card p=6 border shadow=md {
+      title "112 Emergency Distress SOS Console" level=2
+      text "Transmits high-priority coordinates to the Central Police Dispatch CAD and deploys nearest patrol unit."
+
+      row gap=6 {
+        col span=7 gap=4 {
+          card p=6 border {
+            row justify=center {
+              button "HOLD 3 SECONDS FOR EMERGENCY POLICE HELP" danger
+            }
+
+            divider
+
+            row gap=4 {
+              col span=6 {
+                card p=4 border {
+                  text "Live GPS Telemetry"
+                  title "28.6315° N, 77.2167° E" level=3
+                  text "Accuracy: Within 4.8 meters"
+                  badge "GPS LOCKED" success
+                }
+              }
+              col span=6 {
+                card p=4 border {
+                  text "Nearest Police Station"
+                  title "Connaught Place Thana" level=3
+                  text "Distance: 0.42 km • ETA: 4-6 Mins"
+                  badge "PATROL UNIT ALERTED" warning
+                }
+              }
+            }
+          }
+
+          card p=4 border {
+            title "Distress Safety Safeguards" level=3
+            text "Accidental trigger? Cancel distress signal within 15 seconds using your PIN."
+            row gap=2 {
+              input "Enter Citizen 4-Digit PIN" placeholder="****" inputType=password
+              button "Cancel Distress Signal" secondary
+            }
+          }
+        }
+
+        col span=5 gap=4 {
+          card p=4 border {
+            title "Automated Emergency Contact Alerts" level=3
+            text "Alert SMS with live location link dispatched to:"
+            card p=3 border {
+              text "Sunita Mehta (Mother) - +91 9811122334"
+              badge "SMS READY" success
+            }
+            card p=3 border {
+              text "Rohit Sharma (Friend) - +91 9822233445"
+              badge "SMS READY" success
+            }
+            button "+ Add Emergency Contact" secondary
+          }
+
+          card p=4 border {
+            title "Background Evidence Capture" level=3
+            text "Securely captures and hashes encrypted background audio into DEMS evidence locker."
+            button "Enable Background Audio Capture" secondary
+          }
+        }
+      }
+    }
+
+    // ------------------------------------------------------------------------
+    // SECTION 6: RAKSHAK CITIZEN AI LEGAL ASSISTANT DESK
+    // ------------------------------------------------------------------------
+    card p=6 border shadow=md {
+      title "Rakshak AI Legal Advisor (Bharatiya Nyaya Sanhita 2023)" level=2
+      text "Translate plain citizen complaints into formal BNS legal sections and procedural guidance."
+
+      row gap=6 {
+        col span=6 gap=4 {
+          card p=5 border {
+            title "Explain Your Situation in Plain Language" level=3
+            textarea "Describe the event..." placeholder="Yesterday evening two people on a motorcycle snatched my gold chain near the metro station..." rows=6
+            row justify=between align=center {
+              select "Language" placeholder="English (Default)"
+              button "Analyze Legal Rights & BNS Offenses" primary
+            }
+          }
+        }
+
+        col span=6 gap=4 {
+          card p=5 border {
+            title "AI Legal Assessment Report" level=3
+            badge "BNS 2023 Aligned" success
+            card p=4 border {
+              title "BNS Section 304: Snatching" level=4
+              text "Offense: Theft with sudden seizure using force."
+              text "Classification: COGNIZABLE • NON-BAILABLE"
+              text "Penalty: Up to 3 Years Rigorous Imprisonment"
+            }
+            button "Convert AI Analysis into e-FIR Draft" primary
+          }
+        }
+      }
+    }
+
+    // ------------------------------------------------------------------------
+    // SECTION 7: PUBLIC SAFETY & CRIME HOTSPOT GIS MAP
+    // ------------------------------------------------------------------------
+    card p=6 border shadow=md {
+      title "Public Safety & Crime Hotspot Viewer" level=2
+      text "Community spatial awareness showing safe movement corridors and police presence."
+
+      row gap=3 align=center {
+        input "Search Landmark / Area" placeholder="Connaught Place, New Delhi"
+        select "Offense Category" placeholder="All Offenses"
+        button "Search Map" secondary
+      }
+
+      card p=10 border {
+        row justify=center align=center {
+          col align=center gap=2 {
+            title "[ Interactive Leaflet GIS Map Canvas ]" level=3
+            text "• 18 Police Thanas active with 24/7 Duty Officers"
+            text "• 12 High-Patrol Safety Corridors identified"
+            text "• 3 Alert Clusters (Peak Window: 19:00 - 22:30 hrs)"
+          }
+        }
+      }
+
+      row justify=between align=center {
+        row gap=3 {
+          badge "Green: High Safety Corridor" success
+          badge "Yellow: Moderate Activity" warning
+          badge "Red: High Vigilance / Patrol Priority" danger
+        }
+        button "Report Unsafe Dark Spot / Broken Streetlight" secondary
+      }
+    }
+
+    // ------------------------------------------------------------------------
+    // SECTION 8: TOLL-FREE EMERGENCY HELPLINES
+    // ------------------------------------------------------------------------
+    card p=5 border {
+      title "Toll-Free Emergency & Assistance Helplines" level=3
+      row gap=4 {
+        col span=3 {
+          card p=3 border {
+            text "Police & Emergency"
+            title "112" level=2
+            text "24/7 Unified Help"
+          }
+        }
+        col span=3 {
+          card p=3 border {
+            text "Women Helpline"
+            title "1090" level=2
+            text "24/7 Distress Support"
+          }
+        }
+        col span=3 {
+          card p=3 border {
+            text "Cyber Crime Portal"
+            title "1930" level=2
+            text "Financial Cyber Fraud"
+          }
+        }
+        col span=3 {
+          card p=3 border {
+            text "Child Helpline"
+            title "1098" level=2
+            text "Missing Children"
+          }
+        }
+      }
+    }
+  }
+
+  footer border p=4 {
+    row justify=between align=center {
+      text "Smart Police Citizen Public Safety Network • Ministry of Home Affairs / State Police"
+      text "Encrypted under BSA Section 63 & 65B Digital Standards"
+    }
+  }
+}

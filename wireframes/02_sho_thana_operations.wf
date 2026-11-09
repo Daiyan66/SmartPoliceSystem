@@ -1,0 +1,196 @@
+
+page "Smart Police - Station House Officer (SHO) Thana Operations Hub" {
+  header border p=4 {
+    row justify=between align=center {
+      row align=center gap=3 {
+        title "THANA COMMAND & OPERATIONS HUB" level=3
+        badge "Connaught Place Thana (DL-ND-CP-01)" primary
+        badge "CCTNS & BNSS Sec 173 Aligned" success
+      }
+      row align=center gap=2 {
+        badge "Insp. Rajesh Sharma (POL-SHO-001)" neutral
+        button "Duty Roll Call" secondary
+        button "PCR Radar" danger
+        button "Sign Out" secondary
+      }
+    }
+  }
+
+  main p=6 gap=6 {
+    // ------------------------------------------------------------------------
+    // SECTION 1: THANA OPERATIONAL READINESS KPIS
+    // ------------------------------------------------------------------------
+    row gap=4 {
+      col span=3 {
+        card p=4 border shadow=md {
+          text "On-Duty Officer Strength"
+          title "24 / 28 Active" level=2
+          badge "4 on Beat Patrol" success
+        }
+      }
+      col span=3 {
+        card p=4 border shadow=md {
+          text "Pending e-FIR Scrutiny"
+          title "4 New" level=2
+          badge "Action Required Today" warning
+        }
+      }
+      col span=3 {
+        card p=4 border shadow=md {
+          text "Preliminary Inquiries (BNSS 173(3))"
+          title "2 Cases" level=2
+          badge "Within 14-Day Limit" primary
+        }
+      }
+      col span=3 {
+        card p=4 border shadow=md {
+          text "Active 112 CAD SOS"
+          title "1 In-Progress" level=2
+          badge "PCR Van 04 On-Scene" danger
+        }
+      }
+    }
+
+    // ------------------------------------------------------------------------
+    // SECTION 2: e-FIR SCRUTINY, CRN ALLOCATION & ZERO-FIR TRANSFER QUEUE
+    // ------------------------------------------------------------------------
+    card p=6 border shadow=md {
+      row justify=between align=center {
+        col gap=1 {
+          title "Incoming e-FIR / Complaint Scrutiny Desk (BNSS Section 173)" level=2
+          text "Mandatory SHO determination: Formal FIR registration, Section 173(3) inquiry, Zero-FIR transfer, or Reasoned Rejection."
+        }
+        row gap=2 {
+          input "Search by Token / Complainant..." placeholder="FIR-DL-ND-..."
+          button "Filter Cognizable" secondary
+        }
+      }
+
+      divider
+
+      table striped bordered {
+        columns ["Tracking Token", "Complainant", "Alleged Crime & BNS Section", "Jurisdiction Check", "Filing Time", "Preliminary Status", "SHO Official Action"]
+        row ["FIR-DL-ND-2026-894102", "Aarav Mehta (+91 9988776655)", "Snatching & Force (BNS 304)", "IN JURISDICTION (Sector 2)", "Today, 14:32", "PENDING SHO ORDER", "Review & Allocate CRN"]
+        row ["FIR-DL-ND-2026-104921", "Pooja Verma (+91 9811002233)", "Cyber UPI Fraud ₹45,000 (BNS 318)", "IN JURISDICTION (Barakhamba)", "Yesterday, 19:10", "PRELIMINARY INQUIRY", "Assign Cyber IO"]
+        row ["FIR-DL-ND-2026-552190", "Deepak Rao (+91 9871234567)", "Motor Vehicle Theft (BNS 303)", "OUT OF JURISDICTION (Karol Bagh)", "03 Nov 2026", "ZERO-FIR SUBMISSION", "Transfer Zero-FIR"]
+        row ["FIR-DL-ND-2026-339104", "Vikram Solanki (+91 9812998877)", "Civil Tenancy Rent Dispute", "IN JURISDICTION (Inner Circle)", "02 Nov 2026", "NON-COGNIZABLE", "Issue Reasoned Rejection"]
+      }
+    }
+
+    // ------------------------------------------------------------------------
+    // SECTION 3: SHO EXECUTIVE ACTION DRAWER / DECISION DESK
+    // ------------------------------------------------------------------------
+    card p=6 border shadow=md {
+      title "SHO Statutory Decision & Order Workspace: FIR-DL-ND-2026-894102" level=2
+      text "Complainant: Aarav Mehta • Incident: Gold chain snatched at Rajiv Chowk Metro Gate 2"
+
+      row gap=6 {
+        col span=6 gap=4 {
+          card p=4 border {
+            title "Complainant Grievance & Facts" level=3
+            text "Incident occurred at approximately 14:15 hrs. Two unidentified males on black Pulsar motorcycle without license plate grabbed chain and fled towards Radial Road 1. Complainant sustained minor neck scratch. CCTV footage available from Metro Exit shop."
+            divider
+            text "AI Legal Engine Recommendation: Section 304 BNS (Cognizable • Non-Bailable)"
+            text "Loss: 22k Gold Chain (Estimated ₹65,000)"
+          }
+
+          card p=4 border {
+            title "DEMS Evidence Linked" level=3
+            text "• photo_evidence_scratch.jpg (SHA-256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855)"
+            text "• cctv_grab_metro_exit.mp4 (SHA-256: 7f83b1657ff1fc53b92dc18148a1d65dfc2d4b1fa3d677284addd200126d9069)"
+            badge "BSA Sec 63 Integrity Verified" success
+          }
+        }
+
+        col span=6 gap=4 {
+          card p=4 border {
+            title "SHO Order & Assignment Options" level=3
+
+            select "Statutory Order Type" placeholder="Option 1: Formal FIR Registration & CRN Generation"
+            
+            row gap=4 {
+              col span=6 {
+                input "Formal FIR Number" placeholder="FIR-2026-CP-0512" required
+              }
+              col span=6 {
+                select "Assign Investigating Officer (IO)" placeholder="SI Sunil Kumar (Active Cases: 3)"
+              }
+            }
+
+            textarea "SHO Reasoned Order & Inquiry Directives" placeholder="Specify directives for IO: Inspect scene immediately, collect Metro CCTV, issue BNSS Sec 180 notice to eyewitness shopkeeper..." rows=4
+
+            divider
+
+            row justify=between align=center {
+              button "Issue BNSS 173(4) Reasoned Rejection" danger
+              row gap=2 {
+                button "Transfer Zero-FIR to Other Thana" secondary
+                button "CONFIRM & DISPATCH IO" primary
+              }
+            }
+          }
+        }
+      }
+    }
+
+    // ------------------------------------------------------------------------
+    // SECTION 4: ACTIVE INVESTIGATING OFFICER (IO) CASELOAD ROSTER
+    // ------------------------------------------------------------------------
+    card p=6 border shadow=md {
+      row justify=between align=center {
+        title "Thana Investigating Officer (IO) Workload & Assignment Roster" level=2
+        button "Rebalance Docket" secondary
+      }
+
+      table striped bordered {
+        columns ["Officer Name", "Rank / Badge", "Assigned Beat", "Active Cases", "Chargesheets Filed (This Month)", "Case Diary Compliance", "Current Status"]
+        row ["SI Sunil Kumar", "Sub-Inspector / POL-SI-004", "Beat 02 (Rajiv Chowk)", "3 Cases", "2 Completed", "100% UP-TO-DATE", "ON FIELD INSPECTION"]
+        row ["SI Priya Sharma", "Sub-Inspector / POL-SI-006", "Beat 01 (Barakhamba)", "5 Cases", "3 Completed", "94% COMPLIANT", "AVAILABLE AT THANA"]
+        row ["ASI Ramesh Chandra", "Asst. Sub-Inspector / POL-ASI-002", "Beat 04 (Janpath Market)", "2 Cases", "1 Completed", "100% UP-TO-DATE", "AVAILABLE AT THANA"]
+        row ["SI Vikramaditya", "Sub-Inspector / POL-SI-008", "Beat 03 (KG Marg)", "4 Cases", "1 Completed", "88% COMPLIANT", "COURT ATTENDANCE"]
+      }
+    }
+
+    // ------------------------------------------------------------------------
+    // SECTION 5: THANA BEAT PATROL & 112 PCR VAN LIVE CAD
+    // ------------------------------------------------------------------------
+    card p=6 border shadow=md {
+      title "Live Thana Patrol Grid & Rapid Response PCR Units" level=2
+      text "Geofenced station jurisdiction radius: 3.5 km • Real-time emergency CAD coordination"
+
+      row gap=4 {
+        col span=4 {
+          card p=4 border {
+            text "PCR Van 01 (DL-1P-9021)"
+            title "Outer Circle Patrol" level=3
+            text "Crew: Ct. Amit Yadav & Driver Ct. Rakesh"
+            badge "PATROLLING ACTIVE" success
+          }
+        }
+        col span=4 {
+          card p=4 border {
+            text "PCR Van 02 (DL-1P-9022)"
+            title "Janpath & Tolstoy Road" level=3
+            text "Crew: Ct. Manoj & Driver Ct. Suresh"
+            badge "PATROLLING ACTIVE" success
+          }
+        }
+        col span=4 {
+          card p=4 border {
+            text "PCR Van 04 (DL-1P-9024)"
+            title "Radial Road 2 & Metro Gate 2" level=3
+            text "Crew: ASI Ramesh & Ct. Satish"
+            badge "RESPONDING TO 112 SOS" danger
+          }
+        }
+      }
+    }
+  }
+
+  footer border p=4 {
+    row justify=between align=center {
+      text "Delhi Police Central District • Connaught Place Police Station Operations"
+      text "Thana Terminal Certified under CCTNS & BSA 2023 Digital Standards"
+    }
+  }
+}
