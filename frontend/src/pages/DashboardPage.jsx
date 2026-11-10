@@ -22,9 +22,20 @@ export default function DashboardPage({ defaultTab }) {
   const { user, isOfficer, isShoOrAbove, isIo, isAdminOrSP } = useAuth();
   const [searchParams, setSearchParams] = useSearchParams();
 
+  // Normalize route tabs to internal tab keys
+  const normalizeTab = (tab) => {
+    if (!tab) return null;
+    if (tab === 'SOS_CITIZEN') return 'SOS_EMERGENCY';
+    if (tab === 'AI_ADVISOR') return 'AI_LEGAL_ASSIST';
+    if (tab === 'SAFETY_MAP') return 'CRIME_HOTSPOTS';
+    if (tab === 'EVIDENCE_LOCKER') return 'DEMS_EVIDENCE';
+    return tab;
+  };
+
   // Active Tab State (Role-specific default with URL sync)
   const getInitialTab = () => {
-    const queryTab = searchParams.get('tab') || defaultTab;
+    const rawTab = searchParams.get('tab') || defaultTab;
+    const queryTab = normalizeTab(rawTab);
     if (queryTab) return queryTab;
     if (!user || user.role === 'ROLE_CITIZEN') return 'MY_COMPLAINTS';
     if (user.role === 'ROLE_SUB_INSPECTOR' || user.role === 'ROLE_ASI') return 'IO_WORKSPACE';
@@ -36,15 +47,17 @@ export default function DashboardPage({ defaultTab }) {
   const [activeTab, setActiveTab] = useState(getInitialTab);
 
   useEffect(() => {
-    const queryTab = searchParams.get('tab') || defaultTab;
+    const rawTab = searchParams.get('tab') || defaultTab;
+    const queryTab = normalizeTab(rawTab);
     if (queryTab && queryTab !== activeTab) {
-      handleTabChange(queryTab);
+      setActiveTab(queryTab);
     }
   }, [searchParams, defaultTab]);
 
   const handleTabChange = (tabKey) => {
-    handleTabChange(tabKey);
-    setSearchParams({ tab: tabKey });
+    const normalized = normalizeTab(tabKey);
+    setActiveTab(normalized);
+    setSearchParams({ tab: normalized });
   };
 
   // State for stations & provisioning
@@ -392,19 +405,19 @@ export default function DashboardPage({ defaultTab }) {
         {/* CITIZEN VIEWS */}
         {isCitizen && (
           <>
-            {activeTab === 'MY_COMPLAINTS' && (
+            {(activeTab === 'MY_COMPLAINTS' || !activeTab) && (
               <CitizenComplaintsList onNewComplaintClick={() => handleTabChange('FILE_COMPLAINT')} />
             )}
             {activeTab === 'FILE_COMPLAINT' && (
               <ComplaintRegistrationWidget onComplaintCreated={() => handleTabChange('MY_COMPLAINTS')} />
             )}
-            {activeTab === 'SOS_EMERGENCY' && (
+            {(activeTab === 'SOS_EMERGENCY' || activeTab === 'SOS_CITIZEN') && (
               <SosEmergencyWidget />
             )}
-            {activeTab === 'AI_LEGAL_ASSIST' && (
+            {(activeTab === 'AI_LEGAL_ASSIST' || activeTab === 'AI_ADVISOR') && (
               <ComplaintAiAnalyzer />
             )}
-            {activeTab === 'CRIME_HOTSPOTS' && (
+            {(activeTab === 'CRIME_HOTSPOTS' || activeTab === 'SAFETY_MAP') && (
               <CrimeHotspotsWidget />
             )}
           </>
@@ -425,13 +438,13 @@ export default function DashboardPage({ defaultTab }) {
             {activeTab === 'SOS_DISPATCH' && (
               <StationSosConsoleWidget stationId={user?.stationId} />
             )}
-            {activeTab === 'DEMS_EVIDENCE' && (
+            {(activeTab === 'DEMS_EVIDENCE' || activeTab === 'EVIDENCE_LOCKER') && (
               <EvidenceManagementWidget />
             )}
-            {activeTab === 'CRIME_HOTSPOTS' && (
+            {(activeTab === 'CRIME_HOTSPOTS' || activeTab === 'SAFETY_MAP') && (
               <CrimeHotspotsWidget />
             )}
-            {activeTab === 'AI_ANALYZER' && (
+            {(activeTab === 'AI_ANALYZER' || activeTab === 'AI_LEGAL_ASSIST' || activeTab === 'AI_ADVISOR') && (
               <ComplaintAiAnalyzer />
             )}
           </>

@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../services/api';
 import { 
   FileText, Clock, CheckCircle2, ShieldAlert, User, 
   MapPin, ChevronRight, AlertCircle, RefreshCw, Scale,
-  Download, Upload, Eye, Phone, ChevronDown, Check, Printer
+  Download, Upload, Eye, Phone, ChevronDown, Check, Printer,
+  Search, Filter, X
 } from 'lucide-react';
 
 export default function CitizenComplaintsList({ onNewComplaintClick }) {
@@ -13,6 +14,10 @@ export default function CitizenComplaintsList({ onNewComplaintClick }) {
   const [expandedCaseId, setExpandedCaseId] = useState(null);
   const [caseDiaries, setCaseDiaries] = useState({});
   const [loadingDiaries, setLoadingDiaries] = useState({});
+
+  // Filter & Search State
+  const [statusFilter, setStatusFilter] = useState('ALL');
+  const [searchQuery, setSearchQuery] = useState('');
 
   // Modals
   const [showFirModal, setShowFirModal] = useState(null); // complaint object to print
@@ -142,6 +147,39 @@ export default function CitizenComplaintsList({ onNewComplaintClick }) {
     navigate('/citizen/file-fir');
   };
 
+  const counts = useMemo(() => {
+    return {
+      all: complaints.length,
+      submitted: complaints.filter(c => c.status === 'SUBMITTED').length,
+      activeFir: complaints.filter(c => ['FIR_REGISTERED', 'INVESTIGATION_IN_PROGRESS', 'INVESTIGATION'].includes(c.status)).length,
+      chargesheeted: complaints.filter(c => ['CHARGESHEET_FILED', 'CHARGESHEETED'].includes(c.status)).length,
+      disposed: complaints.filter(c => ['REJECTED', 'RESOLVED', 'TRANSFERRED_TO_JURISDICTIONAL_THANA'].includes(c.status)).length,
+    };
+  }, [complaints]);
+
+  const filteredComplaints = useMemo(() => {
+    return complaints.filter((c) => {
+      if (statusFilter === 'SUBMITTED' && c.status !== 'SUBMITTED') return false;
+      if (statusFilter === 'ACTIVE_FIR' && !['FIR_REGISTERED', 'INVESTIGATION_IN_PROGRESS', 'INVESTIGATION'].includes(c.status)) return false;
+      if (statusFilter === 'CHARGESHEETED' && !['CHARGESHEET_FILED', 'CHARGESHEETED'].includes(c.status)) return false;
+      if (statusFilter === 'DISPOSED' && !['REJECTED', 'RESOLVED', 'TRANSFERRED_TO_JURISDICTIONAL_THANA'].includes(c.status)) return false;
+
+      if (searchQuery.trim()) {
+        const q = searchQuery.toLowerCase().trim();
+        const matchToken = c.trackingToken?.toLowerCase().includes(q);
+        const matchCrn = c.crimeRegisterNumber?.toLowerCase().includes(q);
+        const matchLoc = c.incidentLocation?.toLowerCase().includes(q);
+        const matchDesc = c.description?.toLowerCase().includes(q);
+        const matchStation = c.station?.stationName?.toLowerCase().includes(q);
+        const matchBns = c.bnsSections?.toLowerCase().includes(q);
+        if (!matchToken && !matchCrn && !matchLoc && !matchDesc && !matchStation && !matchBns) {
+          return false;
+        }
+      }
+      return true;
+    });
+  }, [complaints, statusFilter, searchQuery]);
+
   return (
     <div className="bg-white rounded-2xl border border-amber-200/80 shadow-md p-6 space-y-6">
       {/* Header */}
@@ -173,6 +211,86 @@ export default function CitizenComplaintsList({ onNewComplaintClick }) {
         </div>
       </div>
 
+      {/* Search & Status Filters */}
+      {!loading && complaints.length > 0 && (
+        <div className="space-y-3 bg-slate-50/80 p-3.5 rounded-xl border border-slate-200">
+          <div className="flex flex-col sm:flex-row items-center gap-3">
+            <div className="relative w-full sm:flex-1">
+              <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+              <input
+                type="text"
+                placeholder="Search by token, CRN, station, sections or keyword..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="input input-sm input-bordered w-full pl-9 pr-8 bg-white text-xs text-slate-800"
+              />
+              {searchQuery && (
+                <button
+                  onClick={() => setSearchQuery('')}
+                  className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+                  title="Clear search"
+                >
+                  <X className="w-3.5 h-3.5" />
+                </button>
+              )}
+            </div>
+
+            <div className="flex items-center gap-1.5 overflow-x-auto w-full sm:w-auto pb-1 sm:pb-0">
+              <button
+                onClick={() => setStatusFilter('ALL')}
+                className={`px-3 py-1.5 text-xs font-bold rounded-lg transition whitespace-nowrap ${
+                  statusFilter === 'ALL'
+                    ? 'bg-amber-400 text-slate-950 shadow-sm'
+                    : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200'
+                }`}
+              >
+                All ({counts.all})
+              </button>
+              <button
+                onClick={() => setStatusFilter('SUBMITTED')}
+                className={`px-3 py-1.5 text-xs font-bold rounded-lg transition whitespace-nowrap ${
+                  statusFilter === 'SUBMITTED'
+                    ? 'bg-amber-400 text-slate-950 shadow-sm'
+                    : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200'
+                }`}
+              >
+                Under Review ({counts.submitted})
+              </button>
+              <button
+                onClick={() => setStatusFilter('ACTIVE_FIR')}
+                className={`px-3 py-1.5 text-xs font-bold rounded-lg transition whitespace-nowrap ${
+                  statusFilter === 'ACTIVE_FIR'
+                    ? 'bg-emerald-500 text-white shadow-sm'
+                    : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200'
+                }`}
+              >
+                Active FIR ({counts.activeFir})
+              </button>
+              <button
+                onClick={() => setStatusFilter('CHARGESHEETED')}
+                className={`px-3 py-1.5 text-xs font-bold rounded-lg transition whitespace-nowrap ${
+                  statusFilter === 'CHARGESHEETED'
+                    ? 'bg-blue-600 text-white shadow-sm'
+                    : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200'
+                }`}
+              >
+                Chargesheeted ({counts.chargesheeted})
+              </button>
+              <button
+                onClick={() => setStatusFilter('DISPOSED')}
+                className={`px-3 py-1.5 text-xs font-bold rounded-lg transition whitespace-nowrap ${
+                  statusFilter === 'DISPOSED'
+                    ? 'bg-slate-700 text-white shadow-sm'
+                    : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200'
+                }`}
+              >
+                Disposed ({counts.disposed})
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {loading ? (
         <div className="p-8 text-center text-xs text-slate-400">Loading your complaint records...</div>
       ) : complaints.length === 0 ? (
@@ -191,9 +309,23 @@ export default function CitizenComplaintsList({ onNewComplaintClick }) {
             File Your First e-FIR
           </button>
         </div>
+      ) : filteredComplaints.length === 0 ? (
+        <div className="p-8 text-center space-y-2 bg-slate-50 rounded-xl border border-dashed border-slate-200">
+          <p className="text-sm font-semibold text-slate-700">No complaints match your current filter</p>
+          <p className="text-xs text-slate-400">Try adjusting your search query or status filter.</p>
+          <button
+            onClick={() => {
+              setStatusFilter('ALL');
+              setSearchQuery('');
+            }}
+            className="btn btn-xs btn-outline btn-warning font-bold mt-2"
+          >
+            Reset Filters
+          </button>
+        </div>
       ) : (
         <div className="space-y-4">
-          {complaints.map((c) => {
+          {filteredComplaints.map((c) => {
             const step = getProgressStep(c.status);
             const isExpanded = expandedCaseId === c.id;
             const diaries = caseDiaries[c.id] || [];
