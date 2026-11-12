@@ -5,6 +5,7 @@ page "Smart Police - Citizen Public Safety & Justice Portal" {
         title "SMART POLICE CITIZEN PORTAL" level=3
         badge "CCTNS & BSA 2023 Certified" primary
       }
+      // bnmnbmn
       row align=center gap=2 {
         button "112 SOS Emergency" danger
         button "File e-FIR" primary
