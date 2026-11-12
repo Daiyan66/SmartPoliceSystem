@@ -38,7 +38,19 @@ public class DataInitializer implements CommandLineRunner {
     public void run(String... args) {
         log.info("Initializing Smart Police foundational data and accounts...");
 
-        // 1. Seed Police Stations
+        // 1. Seed Police Stations (Karnataka State Police & Central Hub)
+        PoliceStation cubbonParkStation = seedStationIfNotExists("PS-KA-BCP-CP01", "Cubbon Park Police Station",
+                "Bengaluru Urban", "Karnataka", 12.9756, 77.5928, "+91-80-22942583", "Inspector Manjunath Swamy");
+
+        PoliceStation indiranagarStation = seedStationIfNotExists("PS-KA-BCP-IN02", "Indiranagar Police Station",
+                "Bengaluru Urban", "Karnataka", 12.9784, 77.6408, "+91-80-22942584", "Inspector Ramesh Gowda");
+
+        seedStationIfNotExists("PS-KA-CID-CY01", "Cyber Crime Division, CID Headquarters",
+                "Bengaluru Urban", "Karnataka", 12.9830, 77.5870, "+91-80-22094496", "SP Cyber Crime CID");
+
+        seedStationIfNotExists("PS-KA-MYS-DV01", "Devaraja Police Station",
+                "Mysuru City", "Karnataka", 12.3118, 76.6529, "+91-821-2418306", "Inspector B. S. Prakash");
+
         PoliceStation cpStation = seedStationIfNotExists("PS-DL-CP-01", "Connaught Place Police Station",
                 "New Delhi", "Delhi", 28.6315, 77.2167, "+91-11-23340001", "Inspector Rajesh Sharma");
 
@@ -48,7 +60,26 @@ public class DataInitializer implements CommandLineRunner {
         seedStationIfNotExists("PS-DL-KB-03", "Karol Bagh Police Station",
                 "Central Delhi", "Delhi", 28.6517, 77.1906, "+91-11-23340003", "Inspector Sandeep Tyagi");
 
-        // 2. Seed Officers & Citizen
+        // 2. Seed Officers & Citizen (Karnataka State Police Modernisation Hub)
+        User kspDgp = seedUserIfNotExists("9876543220", "ips.dgigp.ksp@ksp.gov.in", "IPS-KSP-001",
+                "Dr. Alok Mohan, IPS", Role.ROLE_DIG_DGP, "Director General & Inspector General of Police (Head of Police Force, Karnataka)", null, "Police@123");
+
+        User bcpCp = seedUserIfNotExists("9876543221", "cp.bengaluru@ksp.gov.in", "IPS-BCP-002",
+                "Shri B. Dayananda, IPS", Role.ROLE_SP_SSP, "Commissioner of Police, Bengaluru City", cubbonParkStation, "Police@123");
+
+        User kspSho = seedUserIfNotExists("9876543222", "sho.cubbonpark@ksp.gov.in", "POL-SHO-KA01",
+                "Inspector Manjunath Swamy", Role.ROLE_SHO, "Station House Officer (SHO), Cubbon Park PS", cubbonParkStation, "Police@123");
+
+        User kspIo = seedUserIfNotExists("9876543223", "si.praveen@ksp.gov.in", "POL-SI-KA02",
+                "SI Praveen Kumar", Role.ROLE_SUB_INSPECTOR, "Sub-Inspector / Investigating Officer", cubbonParkStation, "Police@123");
+
+        seedUserIfNotExists("9876543224", "ct.basavaraj@ksp.gov.in", "POL-CT-KA03",
+                "Constable Basavaraj Patil", Role.ROLE_CONSTABLE, "Beat Constable, Cubbon Park Beat 3", cubbonParkStation, "Police@123");
+
+        User citizenRohan = seedUserIfNotExists("9988776644", "rohan.gowda@example.com", null,
+                "Rohan Gowda (Citizen, Bengaluru)", Role.ROLE_CITIZEN, null, null, "Citizen@123");
+
+        // Central / Delhi Seed Officers
         User dgp = seedUserIfNotExists("9876543210", "ips.dgp@police.gov.in", "IPS-DGP-001",
                 "Shri Alok Kumar Verma, IPS", Role.ROLE_DIG_DGP, "Director General of Police", null, "Police@123");
 
@@ -68,12 +99,14 @@ public class DataInitializer implements CommandLineRunner {
                 "Aarav Mehta (Citizen)", Role.ROLE_CITIZEN, null, null, "Citizen@123");
 
         // 3. Seed Real Authentic Case Complaints
+        seedKarnatakaCases(citizenRohan, cubbonParkStation, indiranagarStation, kspSho, kspIo);
         seedComplaintsAndCaseDiaries(citizenAarav, cpStation, bkStation, sho, ioSunil);
 
-        // 4. Seed Live 112 CAD Emergency Distress Alert
+        // 4. Seed Live 112 CAD Emergency Distress Alerts
+        seedKarnatakaSos(citizenRohan, cubbonParkStation);
         seedSosAlerts(citizenAarav, cpStation);
 
-        log.info("Smart Police foundational accounts, cases, and CAD dispatches initialized successfully.");
+        log.info("Smart Police foundational accounts, Karnataka & Central cases, and CAD dispatches initialized successfully.");
     }
 
     private PoliceStation seedStationIfNotExists(String code, String name, String dist, String state,
@@ -227,6 +260,103 @@ public class DataInitializer implements CommandLineRunner {
                     .status("SUBMITTED")
                     .assignedIo(null)
                     .isZeroFir(false)
+                    .build());
+        }
+    }
+
+    private void seedKarnatakaCases(User citizen, PoliceStation cubbonPark, PoliceStation indiranagar, User sho, User io) {
+        // Karnataka Case 1: Cyber Phishing & Financial Fraud under BNS 318(4) & IT Act 66D
+        String tokenKa1 = "FIR-KA-BCP-2026-901234";
+        if (complaintRepository.findByTrackingToken(tokenKa1).isEmpty()) {
+            Complaint c1 = Complaint.builder()
+                    .trackingToken(tokenKa1)
+                    .crimeRegisterNumber("FIR-2026-BCP-0891")
+                    .citizen(citizen)
+                    .station(cubbonPark)
+                    .incidentTimestamp(LocalDateTime.now().minusDays(2).withHour(15).withMinute(30))
+                    .incidentLocation("MG Road / Church Street Metro Exit, Bengaluru")
+                    .latitude(12.9756)
+                    .longitude(77.6066)
+                    .description("Complainant received an urgent SMS claiming BESCOM electricity connection disconnection. Clicking malicious APK link triggered silent OTP interception and illegal debit of INR 85,000 via IMPS to multiple mule bank accounts.")
+                    .bnsSections("BNS Section 318(4) (Cheating by Impersonation), IT Act Sec 66D")
+                    .aiPredictedCategory("Cyber Crime / Financial Extortion")
+                    .aiConfidenceScore(0.97)
+                    .status("INVESTIGATION_IN_PROGRESS")
+                    .assignedIo(io)
+                    .isZeroFir(false)
+                    .build();
+            c1 = complaintRepository.save(c1);
+
+            caseDiaryRepository.save(CaseDiary.builder()
+                    .complaint(c1)
+                    .io(io)
+                    .entryNumber(1)
+                    .entryTimestamp(LocalDateTime.now().minusDays(1).withHour(10).withMinute(30))
+                    .investigationNotes("Received cyber forensic dump from complainant mobile device. Traced destination IP to overseas VPN exit node. Issued urgent debit freeze notice under BNSS Sec 106 to payment gateway nodal officer.")
+                    .actionsTaken("Freezing order emailed to beneficiary bank. Seized system APK payload as Digital Evidence 01.")
+                    .witnessStatements("[{\"name\": \"Kavita Rao (Nodal Compliance Desk)\", \"statement\": \"Acknowledged notice under BNSS 106; lien marked on beneficiary wallet balance INR 62,500.\", \"timestamp\": \"" + LocalDateTime.now().minusDays(1).toString() + "\"}]")
+                    .seizureDetails("1x SHA-256 verified forensic memory dump of infected Android device, sealed in anti-static bag #KSP-CY-401.")
+                    .build());
+        }
+
+        // Karnataka Case 2: Snatching near Cubbon Park Museum (BNS 304 / 303(2))
+        String tokenKa2 = "FIR-KA-BCP-2026-782190";
+        if (complaintRepository.findByTrackingToken(tokenKa2).isEmpty()) {
+            complaintRepository.save(Complaint.builder()
+                    .trackingToken(tokenKa2)
+                    .crimeRegisterNumber("FIR-2026-BCP-0442")
+                    .citizen(citizen)
+                    .station(cubbonPark)
+                    .incidentTimestamp(LocalDateTime.now().minusDays(5).withHour(19).withMinute(15))
+                    .incidentLocation("Kasturba Road near Visvesvaraya Museum, Cubbon Park")
+                    .latitude(12.9750)
+                    .longitude(77.5970)
+                    .description("Two pillion riders on black Yamaha motorcycle intercepted complainant at 7:15 PM and snatched iPhone 15 Pro Max and leather handbag containing office credentials and cash.")
+                    .bnsSections("BNS Section 304 (Snatching), BNS Section 303(2) (Theft)")
+                    .aiPredictedCategory("Snatching / Violent Theft")
+                    .aiConfidenceScore(0.95)
+                    .status("INVESTIGATION_IN_PROGRESS")
+                    .assignedIo(io)
+                    .isZeroFir(false)
+                    .build());
+        }
+
+        // Karnataka Case 3: Vehicle Theft at Indiranagar (BNS 303(2))
+        String tokenKa3 = "FIR-KA-BCP-2026-551098";
+        if (complaintRepository.findByTrackingToken(tokenKa3).isEmpty()) {
+            complaintRepository.save(Complaint.builder()
+                    .trackingToken(tokenKa3)
+                    .crimeRegisterNumber("FIR-2026-IN-0219")
+                    .citizen(citizen)
+                    .station(indiranagar)
+                    .incidentTimestamp(LocalDateTime.now().minusDays(10).withHour(22).withMinute(0))
+                    .incidentLocation("100 Feet Road, Near 12th Main, Indiranagar, Bengaluru")
+                    .latitude(12.9719)
+                    .longitude(77.6412)
+                    .description("Royal Enfield Classic 350 (Reg No: KA-01-EQ-9182) parked outside restaurant stolen between 21:00 and 22:30 hrs.")
+                    .bnsSections("BNS Section 303(2) (Theft of Motor Vehicle)")
+                    .aiPredictedCategory("Automobile Theft")
+                    .aiConfidenceScore(0.94)
+                    .status("FIR_REGISTERED")
+                    .assignedIo(sho)
+                    .isZeroFir(false)
+                    .build());
+        }
+    }
+
+    private void seedKarnatakaSos(User citizen, PoliceStation station) {
+        String alertToken = "SOS-2026-KA-77102";
+        if (sosAlertRepository.findByAlertToken(alertToken).isEmpty()) {
+            sosAlertRepository.save(SosAlert.builder()
+                    .alertToken(alertToken)
+                    .sender(citizen)
+                    .phoneNumber("9988776644")
+                    .latitude(12.9716)
+                    .longitude(77.6070)
+                    .assignedStation(station)
+                    .status("PATROL_DISPATCHED")
+                    .dispatchedPatrolUnit("Hoysala Patrol 12 (ASI Chandrashekar & Ct. Manjunath)")
+                    .notes("Emergency distress beacon triggered near Brigade Road - Residency Road junction. Hoysala Patrol 12 dispatched in 90 seconds under Namma 112 ERSS SLA.")
                     .build());
         }
     }

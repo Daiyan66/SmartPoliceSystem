@@ -103,6 +103,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/api/sos/trigger").permitAll()
                         .requestMatchers("/api/sos/**").permitAll()
                         .requestMatchers("/api/analytics/**").permitAll()
+                        .requestMatchers("/api/icjs/**").permitAll()
                         .requestMatchers("/ws-police/**", "/ws-police-raw/**").permitAll()
                         .requestMatchers("/actuator/**", "/error").permitAll()
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()

@@ -55,51 +55,55 @@ export default function Navbar() {
 
           <div className="flex items-center gap-1.5 flex-wrap">
             <button
-              onClick={() => handleFastSwitch('9988776655', 'Citizen@123', '/citizen/complaints')}
+              onClick={() => handleFastSwitch('9988776644', 'Citizen@123', '/citizen/complaints')}
               disabled={switching}
               className={`px-2 py-0.5 rounded text-[11px] font-bold transition flex items-center gap-1 ${
                 isCitizen
                   ? 'bg-emerald-500 text-slate-950 ring-1 ring-emerald-300'
                   : 'bg-slate-800 hover:bg-slate-700 text-slate-300'
               }`}
+              title="Citizen Rohan Gowda (Bengaluru)"
             >
-              <span>👤 Verified Citizen</span>
+              <span>👤 Citizen (Bengaluru)</span>
             </button>
 
             <button
-              onClick={() => handleFastSwitch('9876543212', 'Police@123', '/officer/thana-desk')}
+              onClick={() => handleFastSwitch('9876543222', 'Police@123', '/officer/thana-desk')}
               disabled={switching}
               className={`px-2 py-0.5 rounded text-[11px] font-bold transition flex items-center gap-1 ${
                 user?.role === 'ROLE_SHO'
                   ? 'bg-amber-400 text-slate-950 ring-1 ring-amber-300'
                   : 'bg-slate-800 hover:bg-slate-700 text-slate-300'
               }`}
+              title="Inspector Manjunath Swamy, SHO Cubbon Park PS"
             >
-              <span>👮 Inspector (SHO)</span>
+              <span>👮 SHO (Cubbon Park)</span>
             </button>
 
             <button
-              onClick={() => handleFastSwitch('9876543213', 'Police@123', '/officer/case-diary')}
+              onClick={() => handleFastSwitch('9876543223', 'Police@123', '/officer/case-diary')}
               disabled={switching}
               className={`px-2 py-0.5 rounded text-[11px] font-bold transition flex items-center gap-1 ${
                 user?.role === 'ROLE_SUB_INSPECTOR'
                   ? 'bg-amber-400 text-slate-950 ring-1 ring-amber-300'
                   : 'bg-slate-800 hover:bg-slate-700 text-slate-300'
               }`}
+              title="SI Praveen Kumar, Investigating Officer"
             >
               <span>🕵️ IO (Sub-Inspector)</span>
             </button>
 
             <button
-              onClick={() => handleFastSwitch('9876543211', 'Police@123', '/officer/command')}
+              onClick={() => handleFastSwitch('9876543220', 'Police@123', '/officer/command')}
               disabled={switching}
               className={`px-2 py-0.5 rounded text-[11px] font-bold transition flex items-center gap-1 ${
                 user?.role === 'ROLE_SP_SSP' || user?.role === 'ROLE_DIG_DGP'
                   ? 'bg-amber-400 text-slate-950 ring-1 ring-amber-300'
                   : 'bg-slate-800 hover:bg-slate-700 text-slate-300'
               }`}
+              title="Dr. Alok Mohan, IPS - DG & IGP, Karnataka State Police"
             >
-              <span>🏛️ District SP / DGP</span>
+              <span>🏛️ DGP (KSP) / CP</span>
             </button>
           </div>
         </div>
@@ -117,10 +121,10 @@ export default function Navbar() {
               <div className="flex items-center space-x-2">
                 <span className="font-extrabold tracking-tight text-lg text-slate-900">SMART POLICE</span>
                 <span className="text-[11px] px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 font-bold border border-amber-300">
-                  CCTNS &amp; BSA 2023
+                  KSP &amp; ICJS Core
                 </span>
               </div>
-              <p className="text-[11px] text-slate-500 font-medium">State Police &amp; Citizen Public Safety Network</p>
+              <p className="text-[11px] text-slate-500 font-medium">Karnataka State Police &amp; Indian Police Service • Karnataka-First | India-Ready</p>
             </div>
           </Link>
 

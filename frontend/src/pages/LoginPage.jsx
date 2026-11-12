@@ -150,43 +150,43 @@ export default function LoginPage() {
           {/* Quick Demo Credentials */}
           <div className="pt-4 border-t border-slate-200">
             <span className="text-[11px] font-bold text-slate-600 uppercase tracking-wider block mb-2">
-              Fast Demo Sign In:
+              Karnataka Police &amp; Central Demo Sign In:
             </span>
             <div className="grid grid-cols-2 gap-2 text-xs">
               <button
                 type="button"
-                onClick={() => setDemoCredentials('9876543210', 'Police@123')}
+                onClick={() => setDemoCredentials('9876543220', 'Police@123')}
                 className="p-2 rounded-lg bg-slate-50 hover:bg-amber-50 border border-slate-200 hover:border-amber-300 text-left transition"
               >
-                <div className="font-bold text-slate-900">DGP (State Head)</div>
-                <div className="text-[10px] text-slate-500">9876543210</div>
+                <div className="font-bold text-slate-900">DG &amp; IGP Karnataka</div>
+                <div className="text-[10px] text-slate-500">9876543220 (Dr. Alok Mohan)</div>
               </button>
 
               <button
                 type="button"
-                onClick={() => setDemoCredentials('9876543211', 'Police@123')}
+                onClick={() => setDemoCredentials('9876543222', 'Police@123')}
                 className="p-2 rounded-lg bg-slate-50 hover:bg-amber-50 border border-slate-200 hover:border-amber-300 text-left transition"
               >
-                <div className="font-bold text-slate-900">District SP</div>
-                <div className="text-[10px] text-slate-500">9876543211</div>
+                <div className="font-bold text-slate-900">SHO Cubbon Park</div>
+                <div className="text-[10px] text-slate-500">9876543222 (Insp. Manjunath)</div>
               </button>
 
               <button
                 type="button"
-                onClick={() => setDemoCredentials('9876543212', 'Police@123')}
+                onClick={() => setDemoCredentials('9876543223', 'Police@123')}
                 className="p-2 rounded-lg bg-slate-50 hover:bg-amber-50 border border-slate-200 hover:border-amber-300 text-left transition"
               >
-                <div className="font-bold text-slate-900">SHO (Inspector)</div>
-                <div className="text-[10px] text-slate-500">9876543212</div>
+                <div className="font-bold text-slate-900">IO (Sub-Inspector)</div>
+                <div className="text-[10px] text-slate-500">9876543223 (SI Praveen)</div>
               </button>
 
               <button
                 type="button"
-                onClick={() => setDemoCredentials('9988776655', 'Citizen@123')}
+                onClick={() => setDemoCredentials('9988776644', 'Citizen@123')}
                 className="p-2 rounded-lg bg-slate-50 hover:bg-emerald-50 border border-slate-200 hover:border-emerald-300 text-left transition"
               >
-                <div className="font-bold text-emerald-800">Citizen Account</div>
-                <div className="text-[10px] text-slate-500">9988776655</div>
+                <div className="font-bold text-emerald-800">Citizen (Bengaluru)</div>
+                <div className="text-[10px] text-slate-500">9988776644 (Rohan Gowda)</div>
               </button>
             </div>
           </div>

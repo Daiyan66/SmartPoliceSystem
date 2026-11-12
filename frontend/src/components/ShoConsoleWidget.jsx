@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import api from '../services/api';
 import { 
   Shield, CheckCircle, XCircle, ArrowRightLeft, UserCheck, 
-  FileCheck, Clock, Search, Filter, AlertTriangle, Sparkles 
+  FileCheck, Clock, Search, Filter, AlertTriangle, Sparkles, Scale 
 } from 'lucide-react';
+import IcjsDocketModal from './IcjsDocketModal';
 
 export default function ShoConsoleWidget({ stationId }) {
   const [complaints, setComplaints] = useState([]);
@@ -16,6 +17,7 @@ export default function ShoConsoleWidget({ stationId }) {
   // Modals state
   const [activeModal, setActiveModal] = useState(null); // 'APPROVE', 'REJECT', 'ASSIGN_IO', 'TRANSFER'
   const [selectedComplaint, setSelectedComplaint] = useState(null);
+  const [showIcjsModal, setShowIcjsModal] = useState(null);
   const [actionLoading, setActionLoading] = useState(false);
   const [actionMsg, setActionMsg] = useState(null);
 
@@ -307,6 +309,13 @@ export default function ShoConsoleWidget({ stationId }) {
                         Transfer
                       </button>
                     )}
+                    <button
+                      onClick={() => setShowIcjsModal(c)}
+                      className="btn btn-xs btn-outline btn-info font-semibold"
+                      title="View CCTNS National Core Sync & e-Courts Docket"
+                    >
+                      ICJS Docket
+                    </button>
                   </td>
                 </tr>
               ))}
@@ -578,6 +587,12 @@ export default function ShoConsoleWidget({ stationId }) {
           </div>
         </div>
       )}
+      {/* MODAL: ICJS & CCTNS 5-PILLAR JUDICIAL DOCKET */}
+      <IcjsDocketModal
+        complaintId={showIcjsModal?.id}
+        isOpen={!!showIcjsModal}
+        onClose={() => setShowIcjsModal(null)}
+      />
     </div>
   );
 }

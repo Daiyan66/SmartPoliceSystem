@@ -7,6 +7,7 @@ import {
   Download, Upload, Eye, Phone, ChevronDown, Check, Printer,
   Search, Filter, X
 } from 'lucide-react';
+import IcjsDocketModal from './IcjsDocketModal';
 
 export default function CitizenComplaintsList({ onNewComplaintClick }) {
   const [complaints, setComplaints] = useState([]);
@@ -22,6 +23,7 @@ export default function CitizenComplaintsList({ onNewComplaintClick }) {
   // Modals
   const [showFirModal, setShowFirModal] = useState(null); // complaint object to print
   const [showUploadModal, setShowUploadModal] = useState(null); // complaint object to attach evidence
+  const [showIcjsModal, setShowIcjsModal] = useState(null); // complaint object to view ICJS docket
   const [uploadFile, setUploadFile] = useState(null);
   const [uploadSha, setUploadSha] = useState('');
   const [uploading, setUploading] = useState(false);
@@ -418,6 +420,15 @@ export default function CitizenComplaintsList({ onNewComplaintClick }) {
 
                   <div className="flex items-center gap-2">
                     <button
+                      onClick={() => setShowIcjsModal(c)}
+                      className="btn btn-xs btn-outline gap-1 text-blue-700 hover:bg-blue-50 hover:border-blue-300"
+                      title="View CCTNS National Core Sync & e-Courts Judicial Docket"
+                    >
+                      <Scale className="w-3.5 h-3.5 text-blue-600" />
+                      ICJS Docket
+                    </button>
+
+                    <button
                       onClick={() => setShowUploadModal(c)}
                       className="btn btn-xs btn-outline gap-1 text-slate-700"
                     >
@@ -634,6 +645,12 @@ export default function CitizenComplaintsList({ onNewComplaintClick }) {
           </div>
         </div>
       )}
+      {/* MODAL: ICJS & CCTNS 5-PILLAR JUDICIAL DOCKET */}
+      <IcjsDocketModal
+        complaintId={showIcjsModal?.id}
+        isOpen={!!showIcjsModal}
+        onClose={() => setShowIcjsModal(null)}
+      />
     </div>
   );
 }
